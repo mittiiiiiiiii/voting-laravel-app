@@ -26,10 +26,14 @@ class UserController extends Controller
         $user->fill($request->validated());
         // データベースに保存
         $user->save();
+
         Log::info('ユーザーの登録が完了しました。', ['user' => $user]);
 
         event(new Registered($user));
         Auth::login($user);
-        return redirect() -> route('Tasks');
+
+        $request->session()->regenerate();
+
+        return redirect() -> route('Preview');
     }
 }
