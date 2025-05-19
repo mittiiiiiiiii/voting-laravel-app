@@ -1,0 +1,7 @@
+{
+    "autoAdd": false,
+    "signedCommit": false,
+    "capitalizeTitle": false,
+    "maxTitleLength": 100,
+    "maxMessageLength": 100
+}
