@@ -10,9 +10,23 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
-    return redirect()->route('Preview');
+    return redirect()->route('Login');
 });
 
 Route::get('/preview', function () {
     return Inertia::render('Preview');
 })->name('Preview');
+
+Route::prefix('auth')->group(function () {
+    Route::get('/register', function () {
+        return Inertia::render('Auth/Register');
+    })->name('Register');
+
+    Route::post('/register', [RegisterController::class, 'store']);
+
+    Route::get('/login', function () {
+        return Inertia::render('Auth/Login');
+    })->name('Login');
+
+    Route::post('/login', [LoginController::class, 'store']);
+});
