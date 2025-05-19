@@ -29,5 +29,5 @@ Route::prefix('auth')->group(function () {
         return Inertia::render('Auth/Login');
     })->name('Login');
 
-    Route::post('/login', [LoginController::class, 'store']);
+    Route::post('/login', [UserController::class, 'login']);
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\LoginUserRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -35,5 +36,25 @@ class UserController extends Controller
         $request->session()->regenerate();
 
         return redirect() -> route('Preview');
+    }
+
+    public function login(LoginUserRequest $request){
+        Log::info('Test1');
+
+        $user = new User();
+
+        $credentials = $request->only('email', 'password');
+
+        if(Auth::attempt($credentials)){
+            Auth::login($user);
+
+            $request->session()->regenerate();
+
+            return redirect()->route('Preview');
+        }
+
+        return back()->withErrors([
+            'email' => 'メールアドレスまたはパスワードが正しくありません',
+        ])->onlyInput('email');
     }
 }
