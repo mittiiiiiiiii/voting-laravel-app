@@ -17,7 +17,7 @@ export default function Login() {
 
 	const onSubmit = (data: UserData) => {
 		console.log("ボタンが押されたよー", data);
-		router.post("/login", data);
+		router.post("/auth/login", data);
 	};
 
 	return (
@@ -49,7 +49,7 @@ export default function Login() {
 				</form>
 				<p className="form-bottom-text">
 					アカウントをお持ちでない方は
-					<a href="/register" className="navigation-link">
+					<a href="/auth/register" className="navigation-link">
 						こちら
 					</a>
 				</p>

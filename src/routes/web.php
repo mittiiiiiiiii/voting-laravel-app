@@ -8,6 +8,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return redirect()->route('Login');
@@ -22,7 +23,7 @@ Route::prefix('auth')->group(function () {
         return Inertia::render('Auth/Register');
     })->name('Register');
 
-    Route::post('/register', [RegisterController::class, 'store']);
+    Route::post('/register', [UserController::class, 'store']);
 
     Route::get('/login', function () {
         return Inertia::render('Auth/Login');

@@ -18,7 +18,7 @@ export default function Register() {
 
 	const onSubmit = (data: UserData) => {
 		console.log("ボタンが押されたよー", data);
-		router.post("/register", data);
+		router.post("/auth/register", data);
 	};
 
 	return (
@@ -59,7 +59,7 @@ export default function Register() {
 				</form>
 				<p className="form-bottom-text">
 					ログインページは
-					<a href="/login" className="navigation-link">
+					<a href="/auth/login" className="navigation-link">
 						こちら
 					</a>
 				</p>
