@@ -1,4 +1,5 @@
 import { router, usePage } from "@inertiajs/react";
+import { useState } from "react";
 import "@/sass/style.css";
 
 type Choice = {
@@ -17,10 +18,21 @@ type Theme = {
 
 export default function ChoicePage() {
     const { theme, choices } = usePage<{ theme: Theme; choices: Choice[] }>().props;
+    const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
 
     const handleCancel = () => {
         console.log("キャンセルボタンが押されたよー");
         router.visit("/vote/top");
+    };
+
+    const handleChoiceClick = (id: number) => {
+        setSelectedChoice(id);
+    };
+
+    const handleChoiceKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>, id: number) => {
+        if (event.key === "Enter" || event.key === " ") {
+            setSelectedChoice(id);
+        }
     };
 
     return (
@@ -35,8 +47,15 @@ export default function ChoicePage() {
                 </div>
                 <ul className="choice-list">
                     {choices.map((choice) => (
-                        <li key={choice.id} className="choice-item">
-                            {choice.text}
+                        <li key={choice.id}>
+                            <button
+                                type="button"
+                                className={`choice-button ${selectedChoice === choice.id ? "selected" : ""}`}
+                                onClick={() => handleChoiceClick(choice.id)}
+                                onKeyDown={(event) => handleChoiceKeyDown(event, choice.id)}
+                            >
+                                {choice.text}
+                            </button>
                         </li>
                     ))}
                 </ul>

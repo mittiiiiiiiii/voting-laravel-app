@@ -271,6 +271,28 @@
 .choice-item:hover {
     background: #e5e7eb;
 }
+.choice-button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.375rem;
+    background-color: #f9fafb;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    margin-bottom: 0.5rem;
+}
+
+.choice-button:hover {
+    background-color: #e5e7eb;
+}
+
+.choice-button.selected {
+    background-color: #2563eb;
+    color: #ffffff;
+    border: 1px solid #2563eb;
+}
 
 
 .profile-edit-btn {
