@@ -41,7 +41,7 @@ export default function NewPage() {
 		router.post("/vote/new", data);
 	};
 
-    const handleCancel = () => {
+	const handleCancel = () => {
 		console.log("キャンセルボタンが押されたよー");
 		router.visit("/vote/top");
 	};
