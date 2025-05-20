@@ -10,6 +10,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
+use App\Http\Controllers\ThemeController;
 
 Route::get('/', function () {
     return redirect()->route('Login');
@@ -39,5 +40,7 @@ Route::prefix('vote')->group(function () {
     Route::get('/new', function () {
         return Inertia::render('Vote/New');
     })->name('Vote.New');
+
+    Route::post('/new', [ThemeController::class, 'store']);
 });
 
