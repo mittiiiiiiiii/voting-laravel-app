@@ -29,4 +29,15 @@ class VoteController extends Controller
             'themes' => $themes,
         ]);
     }
+
+    public function choice(Request $request, $id)
+    {
+        $theme = Theme::with('choices')->findOrFail($id);
+
+        return Inertia::render('Vote/[id]/Choice', [
+            'theme' => $theme,
+            'choices' => $theme->choices,
+        ]);
+    }
+
 }

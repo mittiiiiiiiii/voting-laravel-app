@@ -45,6 +45,11 @@ class Theme extends Model
         ];
     }
 
+    public function choices()
+    {
+        return $this->hasMany(Choice::class, 'theme_id');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
