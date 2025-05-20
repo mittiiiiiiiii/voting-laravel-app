@@ -44,5 +44,7 @@ Route::prefix('vote')->group(function () {
     Route::post('/new', [ThemeController::class, 'store']);
 
     Route::get('/{id}/choice', [VoteController::class, 'choice'])->name('Vote.Choice');
+
+    Route::post('/{id}/choice', [VoteController::class, 'store'])->name('vote.store');
 });
 

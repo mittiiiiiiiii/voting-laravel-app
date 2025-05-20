@@ -22,7 +22,7 @@ export default function ChoicePage() {
 
     const handleCancel = () => {
         console.log("キャンセルボタンが押されたよー");
-        router.visit("/vote/top");
+        router.get("/vote/top");
     };
 
     const handleChoiceClick = (id: number) => {
@@ -33,6 +33,10 @@ export default function ChoicePage() {
         if (event.key === "Enter" || event.key === " ") {
             setSelectedChoice(id);
         }
+    };
+
+    const handleVote = () => {
+        router.post(`vote/${theme.id}/choice`,{ choice_id: selectedChoice });
     };
 
     return (
@@ -60,8 +64,8 @@ export default function ChoicePage() {
                     ))}
                 </ul>
                 <div className="flex gap-2 mt-4 justify-center">
-                    <button type="submit" className="theme-add-btn">
-                        保存
+                    <button type="submit" className="theme-add-btn" onClick={handleVote}>
+                        投票する
                     </button>
                     <button
                         type="button"
