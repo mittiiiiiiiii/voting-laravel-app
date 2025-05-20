@@ -78,7 +78,7 @@ export default function NewPage() {
 							保存
 						</button>
                         <button
-                           type="button"
+                            type="button"
                             onClick={handleCancel}
                             className="theme-cancel-btn"
                         >
