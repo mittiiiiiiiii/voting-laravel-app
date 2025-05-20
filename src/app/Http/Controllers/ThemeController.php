@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreThemeRequest;
 use App\Models\Theme;
+use App\Models\Choice;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Auth\Events\Registered;
@@ -28,6 +29,15 @@ class ThemeController extends Controller
 
         // データベースに保存
         $theme->save();
+
+        Log::info('Test2');
+        $choices = $request->input('choices', []);
+        foreach ($choices as $choiceData) {
+            $choice = new Choice();
+            $choice->theme_id = $theme->id;
+            $choice->text = $choiceData['text'];
+            $choice->save();
+        }
 
         Log::info('フォームの登録が完了しました。', ['theme' => $theme]);
 
