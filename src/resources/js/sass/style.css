@@ -89,96 +89,123 @@
 	padding: 2rem;
 }
 .theme-item {
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
+	background: #ffffff;
+	border: 1px solid #e5e7eb;
+	border-radius: 0.5rem;
+	padding: 1.5rem;
+	margin-bottom: 1rem;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	transition: transform 0.2s, box-shadow 0.2s;
 }
 .theme-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 .theme-item h2 {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: #1f2937;
-    margin-bottom: 0.5rem;
+	font-size: 1.25rem;
+	font-weight: bold;
+	color: #1f2937;
+	margin-bottom: 0.5rem;
 }
 .theme-item p {
-    font-size: 0.875rem;
-    color: #4b5563;
-    margin-bottom: 0.25rem;
+	font-size: 0.875rem;
+	color: #4b5563;
+	margin-bottom: 0.25rem;
 }
 .theme-item p:last-child {
-    font-weight: bold;
-    color: #2563eb;
+	font-weight: bold;
+	color: #2563eb;
 }
 /* ボタン */
 .theme-add-btn {
-    width: 100%;
-    max-width: 10rem;
-    text-align: center;
-    padding: 0.75rem 0;
-    font-size: 1rem;
-    background: #22c55e;
-    color: #fff;
-    border: none;
-    border-radius: 0.375rem;
-    cursor: pointer;
-    transition: background 0.2s;
+	width: 100%;
+	max-width: 10rem;
+	text-align: center;
+	padding: 0.75rem 0;
+	font-size: 1rem;
+	background: #22c55e;
+	color: #fff;
+	border: none;
+	border-radius: 0.375rem;
+	cursor: pointer;
+	transition: background 0.2s;
 }
 .theme-add-btn:hover {
-    background: #16a34a;
+	background: #16a34a;
 }
 .theme-cancel-btn {
-    width: 100%;
-    max-width: 10rem;
-    text-align: center;
-    padding: 0.75rem 0;
-    font-size: 1rem;
-    background: #6b7280;
-    color: #fff;
-    border: none;
-    border-radius: 0.375rem;
-    cursor: pointer;
-    transition: background 0.2s;
+	width: 100%;
+	max-width: 10rem;
+	text-align: center;
+	padding: 0.75rem 0;
+	font-size: 1rem;
+	background: #6b7280;
+	color: #fff;
+	border: none;
+	border-radius: 0.375rem;
+	cursor: pointer;
+	transition: background 0.2s;
 }
 .theme-cancel-btn:hover {
-    background: #374151;
+	background: #374151;
 }
 .choice-add-btn {
-    font-size: 0.875rem;
-    padding: 0.25rem 0.5rem;
-    background: #3b82f6;
-    color: #fff;
-    border: none;
-    border-radius: 0.375rem;
-    cursor: pointer;
-    transition: background 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
+	font-size: 0.875rem;
+	padding: 0.25rem 0.5rem;
+	background: #3b82f6;
+	color: #fff;
+	border: none;
+	border-radius: 0.375rem;
+	cursor: pointer;
+	transition: background 0.2s;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
 }
 .choice-add-btn:hover {
-    background: #2563eb;
+	background: #2563eb;
 }
 .choice-remove-btn {
-    font-size: 0.875rem;
-    padding: 0.25rem 0.5rem;
-    background: #6b7280;
-    color: #fff;
-    border: none;
-    border-radius: 0.375rem;
-    cursor: pointer;
-    transition: background 0.2s;
+	font-size: 0.875rem;
+	padding: 0.25rem 0.5rem;
+	background: #6b7280;
+	color: #fff;
+	border: none;
+	border-radius: 0.375rem;
+	cursor: pointer;
+	transition: background 0.2s;
 }
 .choice-remove-btn:hover {
-    background: #ef4444;
+	background: #ef4444;
 }
-
+.theme-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem;
+	border: 1px solid #e5e7eb;
+	border-radius: 0.5rem;
+	margin-bottom: 1rem;
+	background-color: #ffffff;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.theme-vote-btn {
+	font-size: 0.875rem;
+	padding: 0.5rem 1rem;
+	background: #3b82f6;
+	color: #fff;
+	border: none;
+	border-radius: 0.375rem;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+.theme-vote-btn:hover {
+	background: #2563eb;
+}
+.theme-vote-btn:disabled {
+	background: #d1d5db;
+	cursor: not-allowed;
+}
 
 .profile-edit-btn {
 	background: #f59e42;

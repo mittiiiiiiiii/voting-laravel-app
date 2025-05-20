@@ -1,4 +1,4 @@
-import { router,Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import { useForm } from "react-hook-form";
 import "@/sass/style.css";
 import type { UserData } from "@/types/FormData";
