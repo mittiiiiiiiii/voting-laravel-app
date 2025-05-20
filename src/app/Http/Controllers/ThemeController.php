@@ -22,10 +22,14 @@ class ThemeController extends Controller
 
         // バリデーション済みのデータをモデルに設定
         $theme->fill($request->validated());
+
+        // 現在のユーザーIDを設定
+        $theme->user_id = Auth::id();
+
         // データベースに保存
         $theme->save();
 
-        Log::info('ユーザーの登録が完了しました。', ['theme' => $theme]);
+        Log::info('フォームの登録が完了しました。', ['theme' => $theme]);
 
         $request->session()->regenerate();
 

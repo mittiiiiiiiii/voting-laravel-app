@@ -23,6 +23,7 @@ class Theme extends Model
     protected $fillable = [
         'title',
         'description',
+        'deadline',
         'created_by',
     ];
 
