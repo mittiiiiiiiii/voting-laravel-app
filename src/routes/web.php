@@ -8,11 +8,26 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
-    return redirect()->route('Preview');
+    return redirect()->route('Login');
 });
 
 Route::get('/preview', function () {
     return Inertia::render('Preview');
 })->name('Preview');
+
+Route::prefix('auth')->group(function () {
+    Route::get('/register', function () {
+        return Inertia::render('Auth/Register');
+    })->name('Register');
+
+    Route::post('/register', [UserController::class, 'store']);
+
+    Route::get('/login', function () {
+        return Inertia::render('Auth/Login');
+    })->name('Login');
+
+    Route::post('/login', [UserController::class, 'login']);
+});
