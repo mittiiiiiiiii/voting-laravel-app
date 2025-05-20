@@ -35,4 +35,9 @@ Route::prefix('auth')->group(function () {
 
 Route::prefix('vote')->group(function () {
     Route::get('/top', [VoteController::class, 'top'])->name('Vote.Top');
+
+    Route::get('/new', function () {
+        return Inertia::render('Vote/New');
+    })->name('Vote.New');
 });
+
