@@ -65,7 +65,7 @@ class VoteController extends Controller
         'choice_id' => $request->choice_id,
     ]);
 
-    return response()->json(['message' => '投票が完了しました。']);
+    return redirect()->route('Vote.Top');
 }
 
 }

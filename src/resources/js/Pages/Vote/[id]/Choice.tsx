@@ -36,7 +36,8 @@ export default function ChoicePage() {
     };
 
     const handleVote = () => {
-        router.post(`vote/${theme.id}/choice`,{ choice_id: selectedChoice });
+        console.log("id",theme.id);
+        router.post(`/vote/${theme.id}/choice`, { choice_id: selectedChoice });
     };
 
     return (
