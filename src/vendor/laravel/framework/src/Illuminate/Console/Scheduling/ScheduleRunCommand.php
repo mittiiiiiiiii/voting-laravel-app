@@ -6,8 +6,8 @@ use Illuminate\Console\Application;
 use Illuminate\Console\Command;
 use Illuminate\Console\Events\ScheduledTaskFailed;
 use Illuminate\Console\Events\ScheduledTaskFinished;
-use Illuminate\Console\Events\ScheduledTaskSkipped;
-use Illuminate\Console\Events\ScheduledTaskStarting;
+use Illuminate\Console\Events\Scheduledthemekipped;
+use Illuminate\Console\Events\Scheduledthemetarting;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -120,7 +120,7 @@ class ScheduleRunCommand extends Command
 
         foreach ($events as $event) {
             if (! $event->filtersPass($this->laravel)) {
-                $this->dispatcher->dispatch(new ScheduledTaskSkipped($event));
+                $this->dispatcher->dispatch(new Scheduledthemekipped($event));
 
                 continue;
             }
@@ -184,7 +184,7 @@ class ScheduleRunCommand extends Command
         );
 
         $this->components->task($description, function () use ($event) {
-            $this->dispatcher->dispatch(new ScheduledTaskStarting($event));
+            $this->dispatcher->dispatch(new Scheduledthemetarting($event));
 
             $start = microtime(true);
 
@@ -240,7 +240,7 @@ class ScheduleRunCommand extends Command
                 }
 
                 if (! $event->filtersPass($this->laravel)) {
-                    $this->dispatcher->dispatch(new ScheduledTaskSkipped($event));
+                    $this->dispatcher->dispatch(new Scheduledthemekipped($event));
 
                     continue;
                 }

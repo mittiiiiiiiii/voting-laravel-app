@@ -16,7 +16,7 @@ class LoginController extends Controller
 
         // if (Auth::attempt($credentials)) {
         //     $request->session()->regenerate();
-        //     return redirect() -> route('Tasks');
+        //     return redirect() -> route('theme');
         // }
 
         // バリデーションなしver.
@@ -25,7 +25,7 @@ class LoginController extends Controller
 
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             $request->session()->regenerate();
-            return redirect()->route('Tasks');
+            return redirect()->route('theme');
         }
 
         return back()->withErrors([

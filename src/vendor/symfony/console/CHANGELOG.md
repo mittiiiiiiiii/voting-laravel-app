@@ -57,7 +57,7 @@ CHANGELOG
  * Added `OutputWrapper` to prevent truncated URL in `SymfonyStyle::createBlock`.
  * Deprecate `Command::$defaultName` and `Command::$defaultDescription`, use the `AsCommand` attribute instead
  * Add suggested values for arguments and options in input definition, for input completion
- * Add `$resumeAt` parameter to `ProgressBar#start()`, so that one can easily 'resume' progress on longer tasks, and still get accurate `getEstimate()` and `getRemaining()` results.
+ * Add `$resumeAt` parameter to `ProgressBar#start()`, so that one can easily 'resume' progress on longer theme, and still get accurate `getEstimate()` and `getRemaining()` results.
 
 6.0
 ---

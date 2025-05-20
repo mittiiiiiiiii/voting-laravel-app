@@ -4,7 +4,7 @@ namespace Illuminate\Console\Events;
 
 use Illuminate\Console\Scheduling\Event;
 
-class ScheduledTaskSkipped
+class Scheduledthemekipped
 {
     /**
      * Create a new event instance.

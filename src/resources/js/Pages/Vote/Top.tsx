@@ -3,8 +3,16 @@ import "@/sass/style.css";
 import type { TaskProps } from "@/types/FormData";
 import { useState } from "react";
 
+type Theme = {
+    id: number;
+    title: string;
+    description?: string;
+    deadline?: string;
+    is_closed: boolean;
+};
+
 export default function TopPage() {
-	// const { tasks } = usePage<TaskProps>().props;
+	const { themes } = usePage<{ themes: Theme[] }>().props;
 
 	// const [filter, setFilter] = useState<
 	// 	"all" | "not_started" | "in_progress" | "completed"
@@ -17,12 +25,20 @@ export default function TopPage() {
 	};
 
 	return (
-		<div className="tasks-container">
-			<div className="tasks-box">
-				<h1 className="tasks-title">投票一覧</h1>
-				<ul className="tasks-list">
+		<div className="theme-container">
+			<div className="theme-box">
+				<h1 className="page-title">投票一覧</h1>
+				<ul className="theme-list">
+                    {themes.map((theme) => (
+                        <li key={theme.id} className="theme-item">
+                            <h2>{theme.title}</h2>
+                            <p>{theme.description}</p>
+                            <p>締切: {theme.deadline ? new Date(theme.deadline).toLocaleString() : "なし"}</p>
+                            <p>{theme.is_closed ? "終了済み" : "進行中"}</p>
+                        </li>
+                    ))}
 				</ul>
-                <button type="button" onClick={handleAddTask} className="tasks-add-btn">
+                <button type="button" onClick={handleAddTask} className="theme-add-btn">
 					投票フォームを追加
 				</button>
 			</div>

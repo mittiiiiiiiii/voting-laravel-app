@@ -17,7 +17,7 @@ alias):
     }
 
 This static call cleans up the Mockery container used by the current test, and
-run any verification tasks needed for our expectations.
+run any verification theme needed for our expectations.
 
 For some added brevity when it comes to using Mockery, we can also explicitly
 use the Mockery namespace with a shorter alias. For example:

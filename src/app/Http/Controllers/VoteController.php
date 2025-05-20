@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\LoginUserRequest;
-use App\Models\User;
+use App\Models\Theme;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Auth\Events\Registered;
@@ -19,10 +19,14 @@ class VoteController extends Controller
     {
         Log::info('Test1');
 
-        session()->regenerate();
+        $themes = Theme::all();
 
-        Log::info('Test2');
+        foreach ($themes as $theme) {
+            Log::info('Theme:', ['id' => $theme->id, 'title' => $theme->title]);
+        }
 
-        return Inertia::render('Vote/Top');
+        return Inertia::render('Vote/Top', [
+            'themes' => $themes,
+        ]);
     }
 }

@@ -40,11 +40,11 @@ class OptimizeCommand extends Command
             ->unique()
             ->flip();
 
-        $tasks = Collection::wrap($this->getOptimizeTasks())
+        $theme = Collection::wrap($this->getOptimizetheme())
             ->reject(fn ($command, $key) => $exceptions->hasAny([$command, $key]))
             ->toArray();
 
-        foreach ($tasks as $description => $command) {
+        foreach ($theme as $description => $command) {
             $this->components->task($description, fn () => $this->callSilently($command) == 0);
         }
 
@@ -56,7 +56,7 @@ class OptimizeCommand extends Command
      *
      * @return array
      */
-    protected function getOptimizeTasks()
+    protected function getOptimizetheme()
     {
         return [
             'config' => 'config:cache',

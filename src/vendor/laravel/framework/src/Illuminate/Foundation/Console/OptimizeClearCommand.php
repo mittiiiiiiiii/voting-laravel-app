@@ -40,11 +40,11 @@ class OptimizeClearCommand extends Command
             ->unique()
             ->flip();
 
-        $tasks = Collection::wrap($this->getOptimizeClearTasks())
+        $theme = Collection::wrap($this->getOptimizeCleartheme())
             ->reject(fn ($command, $key) => $exceptions->hasAny([$command, $key]))
             ->toArray();
 
-        foreach ($tasks as $description => $command) {
+        foreach ($theme as $description => $command) {
             $this->components->task($description, fn () => $this->callSilently($command) == 0);
         }
 
@@ -56,7 +56,7 @@ class OptimizeClearCommand extends Command
      *
      * @return array
      */
-    public function getOptimizeClearTasks()
+    public function getOptimizeCleartheme()
     {
         return [
             'cache' => 'cache:clear',

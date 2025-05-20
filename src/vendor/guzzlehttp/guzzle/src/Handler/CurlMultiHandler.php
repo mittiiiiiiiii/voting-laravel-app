@@ -160,7 +160,7 @@ class CurlMultiHandler
             }
         }
 
-        // Run curl_multi_exec in the queue to enable other async tasks to run
+        // Run curl_multi_exec in the queue to enable other async theme to run
         P\Utils::queue()->add(Closure::fromCallable([$this, 'tickInQueue']));
 
         // Step through the task queue which may add additional requests.

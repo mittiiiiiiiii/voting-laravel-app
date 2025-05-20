@@ -147,7 +147,7 @@ interface LegacyMockInterface
     public function mockery_setGroup($group, $order);
 
     /**
-     * Tear down tasks for this mock
+     * Tear down theme for this mock
      *
      * @return void
      */

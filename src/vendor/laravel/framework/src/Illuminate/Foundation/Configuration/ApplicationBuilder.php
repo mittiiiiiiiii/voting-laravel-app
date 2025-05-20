@@ -348,7 +348,7 @@ class ApplicationBuilder
     }
 
     /**
-     * Register the scheduled tasks for the application.
+     * Register the scheduled theme for the application.
      *
      * @param  callable(\Illuminate\Console\Scheduling\Schedule $schedule): void  $callback
      * @return $this

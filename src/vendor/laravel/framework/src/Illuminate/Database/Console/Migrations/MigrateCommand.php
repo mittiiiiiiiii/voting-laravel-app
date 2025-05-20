@@ -313,7 +313,7 @@ class MigrateCommand extends BaseCommand implements Isolatable
         $this->newLine();
 
         // Finally, we will fire an event that this schema has been loaded so developers
-        // can perform any post schema load tasks that are necessary in listeners for
+        // can perform any post schema load theme that are necessary in listeners for
         // this event, which may seed the database tables with some necessary data.
         $this->dispatcher->dispatch(
             new SchemaLoaded($connection, $path)
