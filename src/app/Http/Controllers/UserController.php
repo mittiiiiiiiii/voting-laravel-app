@@ -35,7 +35,7 @@ class UserController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect() -> route('Preview');
+        return redirect() -> route('Vote.Top');
     }
 
     public function login(LoginUserRequest $request){
@@ -50,7 +50,7 @@ class UserController extends Controller
 
             $request->session()->regenerate();
 
-            return redirect()->route('Login');
+            return redirect()->route('Vote.Top');
         }
 
         return back()->withErrors([

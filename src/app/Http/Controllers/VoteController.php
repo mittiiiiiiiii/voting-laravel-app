@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
@@ -20,6 +21,8 @@ class VoteController extends Controller
 
         session()->regenerate();
 
-        return redirect() -> route('Vote.Top');
+        Log::info('Test2');
+
+        return Inertia::render('Vote/Top');
     }
 }
