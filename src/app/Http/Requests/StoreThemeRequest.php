@@ -44,6 +44,8 @@ class StoreThemeRequest extends FormRequest
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'deadline' => 'nullable|date|after:now',
+            'choices' => 'required|array|min:1',
+            'choices.*.text' => 'required|string|max:255',
         ];
     }
 
@@ -55,6 +57,12 @@ class StoreThemeRequest extends FormRequest
             'description.string' => '説明は文字列で入力してください。',
             'deadline.date'  => '締切は有効な日付形式で入力してください。',
             'deadline.after' => '締切は現在時刻以降に設定してください。',
+            'choices.required' => '選択肢は少なくとも1つ必要です。',
+            'choices.array' => '選択肢は配列形式で入力してください。',
+            'choices.min' => '選択肢は少なくとも1つ必要です。',
+            'choices.*.text.required' => '各選択肢のテキストは必須です。',
+            'choices.*.text.string' => '各選択肢のテキストは文字列で入力してください。',
+            'choices.*.text.max' => '各選択肢のテキストは255文字以内で入力してください。',
         ];
     }
 

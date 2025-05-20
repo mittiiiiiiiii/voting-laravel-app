@@ -31,7 +31,9 @@ class ThemeController extends Controller
         $theme->save();
 
         Log::info('Test2');
+
         $choices = $request->input('choices', []);
+
         foreach ($choices as $choiceData) {
             $choice = new Choice();
             $choice->theme_id = $theme->id;
