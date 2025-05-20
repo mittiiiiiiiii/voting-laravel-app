@@ -50,7 +50,7 @@ class UserController extends Controller
 
             $request->session()->regenerate();
 
-            return redirect()->route('Preview');
+            return redirect()->route('Login');
         }
 
         return back()->withErrors([

@@ -524,9 +524,11 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
     public static $classMap = array (
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/LoginController.php',
-        'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
         'App\\Http\\Controllers\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/RegisterController.php',
-        'App\\Http\\Controllers\\TaskController' => __DIR__ . '/../..' . '/app/Http/Controllers/TaskController.php',
+        'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
+        'App\\Http\\Controllers\\VoteController' => __DIR__ . '/../..' . '/app/Http/Controllers/VoteController.php',
+        'App\\Http\\Requests\\LoginUserRequest' => __DIR__ . '/../..' . '/app/Http/Requests/LoginUserRequest.php',
+        'App\\Http\\Requests\\StoreUserRequest' => __DIR__ . '/../..' . '/app/Http/Requests/StoreUserRequest.php',
         'App\\Models\\Task' => __DIR__ . '/../..' . '/app/Models/Task.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
