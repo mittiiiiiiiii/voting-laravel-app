@@ -25,14 +25,14 @@ class ProcessDriver implements Driver
     }
 
     /**
-     * Run the given tasks concurrently and return an array containing the results.
+     * Run the given theme concurrently and return an array containing the results.
      */
-    public function run(Closure|array $tasks): array
+    public function run(Closure|array $theme): array
     {
         $command = Application::formatCommandString('invoke-serialized-closure');
 
-        $results = $this->processFactory->pool(function (Pool $pool) use ($tasks, $command) {
-            foreach (Arr::wrap($tasks) as $key => $task) {
+        $results = $this->processFactory->pool(function (Pool $pool) use ($theme, $command) {
+            foreach (Arr::wrap($theme) as $key => $task) {
                 $pool->as($key)->path(base_path())->env([
                     'LARAVEL_INVOKABLE_CLOSURE' => serialize(new SerializableClosure($task)),
                 ])->command($command);
@@ -59,14 +59,14 @@ class ProcessDriver implements Driver
     }
 
     /**
-     * Start the given tasks in the background after the current task has finished.
+     * Start the given theme in the background after the current task has finished.
      */
-    public function defer(Closure|array $tasks): DeferredCallback
+    public function defer(Closure|array $theme): DeferredCallback
     {
         $command = Application::formatCommandString('invoke-serialized-closure');
 
-        return defer(function () use ($tasks, $command) {
-            foreach (Arr::wrap($tasks) as $task) {
+        return defer(function () use ($theme, $command) {
+            foreach (Arr::wrap($theme) as $task) {
                 $this->processFactory->path(base_path())->env([
                     'LARAVEL_INVOKABLE_CLOSURE' => serialize(new SerializableClosure($task)),
                 ])->run($command.' 2>&1 &');

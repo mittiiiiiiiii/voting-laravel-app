@@ -12,20 +12,20 @@ use function Illuminate\Support\defer;
 class SyncDriver implements Driver
 {
     /**
-     * Run the given tasks concurrently and return an array containing the results.
+     * Run the given theme concurrently and return an array containing the results.
      */
-    public function run(Closure|array $tasks): array
+    public function run(Closure|array $theme): array
     {
-        return Collection::wrap($tasks)->map(
+        return Collection::wrap($theme)->map(
             fn ($task) => $task()
         )->all();
     }
 
     /**
-     * Start the given tasks in the background after the current task has finished.
+     * Start the given theme in the background after the current task has finished.
      */
-    public function defer(Closure|array $tasks): DeferredCallback
+    public function defer(Closure|array $theme): DeferredCallback
     {
-        return defer(fn () => Collection::wrap($tasks)->each(fn ($task) => $task()));
+        return defer(fn () => Collection::wrap($theme)->each(fn ($task) => $task()));
     }
 }

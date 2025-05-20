@@ -70,8 +70,8 @@
 	font-size: 0.875rem;
 }
 
-/* タスクページ用グローバルCSS */
-.tasks-container {
+/* 投票ページ用グローバルCSS */
+.theme-container {
 	min-height: 100vh;
 	background-color: #f3f4f6;
 	padding-top: 2.5rem;
@@ -80,7 +80,7 @@
 	align-items: flex-start;
 	justify-content: center;
 }
-.tasks-box {
+.theme-box {
 	width: 100%;
 	max-width: 60rem;
 	background: #fff;
@@ -88,93 +88,70 @@
 	box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);
 	padding: 2rem;
 }
-.tasks-title {
-	font-size: 1.5rem;
-	font-weight: bold;
-	margin-bottom: 1.5rem;
-	text-align: center;
+.theme-item {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
-.tasks-list {
-	margin-bottom: 2rem;
-	list-style: none;
-	padding: 0;
+.theme-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
-.tasks-list-item {
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
-	background: #f1f5f9;
-	border-radius: 0.375rem;
-	padding: 1rem;
-	margin-bottom: 1rem;
+.theme-item h2 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
 }
-@media (min-width: 768px) {
-	.tasks-list-item {
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-between;
-	}
+.theme-item p {
+    font-size: 0.875rem;
+    color: #4b5563;
+    margin-bottom: 0.25rem;
 }
-.tasks-list-text {
-	color: #374151;
-	flex: 1;
+.theme-item p:last-child {
+    font-weight: bold;
+    color: #2563eb;
 }
-.tasks-list-actions {
-	display: flex;
-	gap: 0.5rem;
+/* 保存ボタン */
+.theme-add-btn {
+    width: 100%;
+    max-width: 10rem;
+    text-align: center;
+    padding: 0.75rem 0;
+    font-size: 1rem;
+    background: #22c55e;
+    color: #fff;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background 0.2s;
 }
-.tasks-edit-btn {
-	background: #3b82f6;
-	color: #fff;
-	border-radius: 0.375rem;
-	padding: 0.25rem 1rem;
-	border: none;
-	font-weight: 500;
-	cursor: pointer;
-	transition: background 0.2s;
+.theme-add-btn:hover {
+    background: #16a34a;
 }
-.tasks-edit-btn:hover {
-	background: #2563eb;
+.theme-cancel-btn {
+    width: 100%;
+    max-width: 10rem;
+    text-align: center;
+    padding: 0.75rem 0;
+    font-size: 1rem;
+    background: #6b7280;
+    color: #fff;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background 0.2s;
 }
-.tasks-delete-btn {
-	background: #ef4444;
-	color: #fff;
-	border-radius: 0.375rem;
-	padding: 0.25rem 1rem;
-	border: none;
-	font-weight: 500;
-	cursor: pointer;
-	transition: background 0.2s;
+.theme-cancel-btn:hover {
+    background: #374151;
 }
-.tasks-delete-btn:hover {
-	background: #b91c1c;
-}
-.tasks-add-btn {
-	width: 100%;
-	background: #22c55e;
-	color: #fff;
-	font-weight: 600;
-	padding: 0.75rem 0;
-	border-radius: 0.375rem;
-	border: none;
-	cursor: pointer;
-	transition: background 0.2s;
-}
-.tasks-add-btn:hover {
-	background: #16a34a;
-}
-.tasks-cancel-btn {
-	background: #6b7280;
-	color: #fff;
-	border-radius: 0.375rem;
-	padding: 0.75rem 0;
-	border: none;
-	cursor: pointer;
-	transition: background 0.2s;
-}
-.tasks-cancel-btn:hover {
-	background: #374151;
-}
+
+
+
 .profile-edit-btn {
 	background: #f59e42;
 	color: #fff;

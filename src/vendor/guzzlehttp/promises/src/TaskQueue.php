@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace GuzzleHttp\Promise;
 
 /**
- * A task queue that executes tasks in a FIFO order.
+ * A task queue that executes theme in a FIFO order.
  *
  * This task queue class is used to settle promises asynchronously and
  * maintains a constant stack size. You can use the task queue asynchronously
@@ -25,7 +25,7 @@ class TaskQueue implements TaskQueueInterface
         if ($withShutdown) {
             register_shutdown_function(function (): void {
                 if ($this->enableShutdown) {
-                    // Only run the tasks if an E_ERROR didn't occur.
+                    // Only run the theme if an E_ERROR didn't occur.
                     $err = error_get_last();
                     if (!$err || ($err['type'] ^ E_ERROR)) {
                         $this->run();

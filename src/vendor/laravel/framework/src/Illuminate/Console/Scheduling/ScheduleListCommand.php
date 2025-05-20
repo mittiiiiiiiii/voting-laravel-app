@@ -23,7 +23,7 @@ class ScheduleListCommand extends Command
      */
     protected $signature = 'schedule:list
         {--timezone= : The timezone that times should be displayed in}
-        {--next : Sort the listed tasks by their next due date}
+        {--next : Sort the listed theme by their next due date}
     ';
 
     /**
@@ -31,7 +31,7 @@ class ScheduleListCommand extends Command
      *
      * @var string
      */
-    protected $description = 'List all scheduled tasks';
+    protected $description = 'List all scheduled theme';
 
     /**
      * The terminal width resolver callback.
@@ -53,7 +53,7 @@ class ScheduleListCommand extends Command
         $events = new Collection($schedule->events());
 
         if ($events->isEmpty()) {
-            $this->components->info('No scheduled tasks have been defined.');
+            $this->components->info('No scheduled theme have been defined.');
 
             return;
         }

@@ -21,5 +21,5 @@ export type Task = {
 };
 
 export type TaskProps = {
-	tasks: Task[];
+	theme: Task[];
 };

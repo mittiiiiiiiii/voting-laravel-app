@@ -24,7 +24,7 @@ class ConcurrencyLimiter
     protected $name;
 
     /**
-     * The allowed number of concurrent tasks.
+     * The allowed number of concurrent theme.
      *
      * @var int
      */

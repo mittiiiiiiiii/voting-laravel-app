@@ -10,7 +10,7 @@ Expectation Declarations
     preferably in a callback method such as ``tearDown`` or ``_after``
     (depending on whether or not we're integrating Mockery with another
     framework). This static call cleans up the Mockery container used by the
-    current test, and run any verification tasks needed for our expectations.
+    current test, and run any verification theme needed for our expectations.
 
 Once we have created a mock object, we'll often want to start defining how
 exactly it should behave (and how it should be called). This is where the
@@ -158,8 +158,8 @@ Check if expected values are included or not, but type should be matched:
 
     $mock->foo(1, 2, 3);  // matches the expectation
     $mock->foo(3, 2, 1);  // matches the expectation (passed order doesn't matter)
-    $mock->foo('1', '2'); // throws a NoMatchingExpectationException (type should be matched) 
-    $mock->foo(3);        // throws a NoMatchingExpectationException 
+    $mock->foo('1', '2'); // throws a NoMatchingExpectationException (type should be matched)
+    $mock->foo(3);        // throws a NoMatchingExpectationException
 
 Any, or no arguments
 ^^^^^^^^^^^^^^^^^^^^

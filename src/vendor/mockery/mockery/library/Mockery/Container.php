@@ -509,7 +509,7 @@ class Container
     }
 
     /**
-     * Tear down tasks for this container
+     * Tear down theme for this container
      *
      * @throws PHPException
      */

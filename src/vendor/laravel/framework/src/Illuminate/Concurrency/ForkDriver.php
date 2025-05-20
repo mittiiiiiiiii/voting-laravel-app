@@ -13,14 +13,14 @@ use function Illuminate\Support\defer;
 class ForkDriver implements Driver
 {
     /**
-     * Run the given tasks concurrently and return an array containing the results.
+     * Run the given theme concurrently and return an array containing the results.
      */
-    public function run(Closure|array $tasks): array
+    public function run(Closure|array $theme): array
     {
-        $tasks = Arr::wrap($tasks);
+        $theme = Arr::wrap($theme);
 
-        $keys = array_keys($tasks);
-        $values = array_values($tasks);
+        $keys = array_keys($theme);
+        $values = array_values($theme);
 
         /** @phpstan-ignore class.notFound */
         $results = Fork::new()->run(...$values);
@@ -31,10 +31,10 @@ class ForkDriver implements Driver
     }
 
     /**
-     * Start the given tasks in the background after the current task has finished.
+     * Start the given theme in the background after the current task has finished.
      */
-    public function defer(Closure|array $tasks): DeferredCallback
+    public function defer(Closure|array $theme): DeferredCallback
     {
-        return defer(fn () => $this->run($tasks));
+        return defer(fn () => $this->run($theme));
     }
 }

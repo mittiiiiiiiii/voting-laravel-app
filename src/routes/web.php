@@ -9,6 +9,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VoteController;
+use App\Http\Controllers\ThemeController;
 
 Route::get('/', function () {
     return redirect()->route('Login');
@@ -31,3 +33,14 @@ Route::prefix('auth')->group(function () {
 
     Route::post('/login', [UserController::class, 'login']);
 });
+
+Route::prefix('vote')->group(function () {
+    Route::get('/top', [VoteController::class, 'top'])->name('Vote.Top');
+
+    Route::get('/new', function () {
+        return Inertia::render('Vote/New');
+    })->name('Vote.New');
+
+    Route::post('/new', [ThemeController::class, 'store']);
+});
+

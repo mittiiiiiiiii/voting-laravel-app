@@ -22,7 +22,7 @@ class DurationLimiter
     private $name;
 
     /**
-     * The allowed number of concurrent tasks.
+     * The allowed number of concurrent theme.
      *
      * @var int
      */
@@ -143,7 +143,7 @@ class DurationLimiter
      * ARGV[1] - Current time in microseconds
      * ARGV[2] - Current time in seconds
      * ARGV[3] - Duration of the bucket
-     * ARGV[4] - Allowed number of tasks
+     * ARGV[4] - Allowed number of theme
      *
      * @return string
      */
@@ -178,7 +178,7 @@ LUA;
      * ARGV[1] - Current time in microseconds
      * ARGV[2] - Current time in seconds
      * ARGV[3] - Duration of the bucket
-     * ARGV[4] - Allowed number of tasks
+     * ARGV[4] - Allowed number of theme
      *
      * @return string
      */
