@@ -116,7 +116,7 @@
     font-weight: bold;
     color: #2563eb;
 }
-/* 保存ボタン */
+/* ボタン */
 .theme-add-btn {
     width: 100%;
     max-width: 10rem;
@@ -149,7 +149,35 @@
 .theme-cancel-btn:hover {
     background: #374151;
 }
-
+.choice-add-btn {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+    background: #3b82f6;
+    color: #fff;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+.choice-add-btn:hover {
+    background: #2563eb;
+}
+.choice-remove-btn {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+    background: #6b7280;
+    color: #fff;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.choice-remove-btn:hover {
+    background: #ef4444;
+}
 
 
 .profile-edit-btn {
