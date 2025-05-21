@@ -81,4 +81,15 @@ class UserController extends Controller
 
         return redirect()->route('Vote.Top')->with('success', 'プロフィールを更新しました');
     }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login')->with('success', 'ログアウトしました');
+    }
 }

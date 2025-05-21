@@ -22,10 +22,20 @@ export default function ProfilePage() {
 		router.post("/auth/profile", data);
 	};
 
+	const Logouthandle = () => {
+		if (confirm("本当にログアウトしますか？")) {
+			router.post("/auth/logout");
+		}
+	};
+
+	const handleCancel = () => {
+		router.get("/vote/top");
+	};
+
 	return (
 		<div className="form-container">
 			<div className="form-box">
-				<h1 className="page-title">プロフィール編集</h1>
+				<h1 className="page-title">プロフィール</h1>
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<input
 						type="text"
@@ -56,6 +66,20 @@ export default function ProfilePage() {
 					)}
 					<button type="submit" className="form-button">
 						保存
+					</button>
+					<button
+						type="button"
+						onClick={Logouthandle}
+						className="theme-logout-btn"
+					>
+						ログアウト
+					</button>
+					<button
+						type="button"
+						onClick={handleCancel}
+						className="theme-cancel-btn"
+					>
+						キャンセル
 					</button>
 				</form>
 			</div>

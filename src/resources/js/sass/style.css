@@ -323,11 +323,11 @@
 }
 
 .result-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px auto;
-    width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px auto;
+	width: 100%;
 }
 
 .profile-edit-btn {
@@ -343,23 +343,16 @@
 .profile-edit-btn:hover {
 	background: #ea580c;
 }
+.theme-logout-btn {
+	background-color: #f56565;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
 
-.task-info {
-	display: flex;
-	flex-direction: column;
-	gap: 0.25rem;
-	margin-bottom: 0.5rem;
-}
-.task-row {
-	display: flex;
-	gap: 0.5rem;
-}
-.task-label {
-	font-weight: bold;
-	color: #2563eb;
-	min-width: 4rem;
-}
-.task-value {
-	color: #374151;
-	word-break: break-all;
+.theme-logout-btn:hover {
+	background-color: #c53030;
 }
