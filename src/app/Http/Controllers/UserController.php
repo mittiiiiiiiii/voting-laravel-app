@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\LoginUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -56,5 +58,28 @@ class UserController extends Controller
         return back()->withErrors([
             'email' => 'メールアドレスまたはパスワードが正しくありません',
         ])->onlyInput('email');
+    }
+
+    public function edit(Request $request)
+    {
+        $user = $request->user();
+        return Inertia::render('Auth/Profile', [
+            'user' => $user,
+        ]);
+    }
+
+    public function update(UpdateUserRequest $request)
+    {
+        $user = $request->user();
+
+        $validated = $request->validated();
+
+        $user->update([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password') ? bcrypt($request->input('password')) : $user->password,
+        ]);
+
+        return redirect()->route('Vote.Top')->with('success', 'プロフィールを更新しました');
     }
 }

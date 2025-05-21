@@ -32,6 +32,10 @@ Route::prefix('auth')->group(function () {
     })->name('login');
 
     Route::post('/login', [UserController::class, 'login']);
+
+    Route::get('/profile', [UserController::class, 'edit'])->name('Profile.edit');
+
+    Route::post('/profile', [UserController::class, 'update'])->name('Profile.update');
 });
 
 Route::middleware(['auth'])->group(function () {
