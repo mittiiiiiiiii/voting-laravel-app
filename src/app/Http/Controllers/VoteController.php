@@ -69,7 +69,7 @@ class VoteController extends Controller
 
         $vote->save();
 
-        return redirect()->route('Vote.Complete',['id' => $id]);
+        return redirect()->route('Vote.Result',['id' => $id]);
     }
 
 }

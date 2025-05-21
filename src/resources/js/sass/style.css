@@ -322,6 +322,14 @@
 	border: 1px solid #2563eb;
 }
 
+.result-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    width: 100%;
+}
+
 .profile-edit-btn {
 	background: #f59e42;
 	color: #fff;

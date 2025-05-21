@@ -8,10 +8,12 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreThemeRequest;
 use App\Models\Theme;
 use App\Models\Choice;
+use App\Models\Vote;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ThemeController extends Controller
 {
@@ -104,8 +106,27 @@ class ThemeController extends Controller
         return redirect()->route('Vote.Top')->with('success', 'テーマが削除されました。');
     }
 
-    public function complete($id)
+    public function Result($id)
     {
-        return Inertia::render('Vote/[id]/Complete');
+        $theme = Theme::with('choices')->findOrFail($id);
+
+        $results = Vote::select('choice_id',DB::raw('count(*) as total'))
+            ->where('theme_id', $id)
+            ->groupBy('choice_id')
+            ->get();
+
+        // 選択肢ごとの投票数をマッピング
+        $data = $theme->choices->map(function ($choice) use ($results) {
+            $result = $results->firstWhere('choice_id', $choice->id);
+            return [
+                'choice' => $choice->text,
+                'votes' => $result ? $result->total : 0,
+            ];
+        });
+
+        return Inertia::render('Vote/[id]/Result', [
+            'theme' => $theme,
+            'results' => $data,
+        ]);
     }
 }
