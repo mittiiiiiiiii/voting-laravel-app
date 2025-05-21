@@ -89,4 +89,18 @@ class ThemeController extends Controller
 
         return redirect()->route('Vote.Top')->with('success', 'テーマが更新されました。');
     }
+
+    public function delete($id)
+    {
+        $theme = Theme::findOrFail($id);
+
+        // 作成者のみ削除可能
+        if ($theme->user_id !== Auth::id()) {
+            abort(403, '権限がありません。');
+        }
+
+        $theme->delete();
+
+        return redirect()->route('Vote.Top')->with('success', 'テーマが削除されました。');
+    }
 }

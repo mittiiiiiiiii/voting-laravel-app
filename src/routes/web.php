@@ -55,5 +55,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{id}/edit', [ThemeController::class, 'edit'])->name('Vote.Edit');
 
         Route::post('/{id}/edit', [ThemeController::class, 'update'])->name('Vote.Update');
+
+        Route::post('/{id}/delete', [ThemeController::class, 'delete'])->name('Vote.Update');
     });
 });

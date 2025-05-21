@@ -57,6 +57,12 @@ export default function EditPage() {
 		router.get("/vote/top");
 	};
 
+	const handledelete = (themeId: number) => {
+		if (confirm("本当に削除しますか？")) {
+			router.post(`/vote/${themeId}/delete`);
+		}
+	};
+
 	return (
 		<div className="theme-container">
 			<div className="theme-box">
@@ -139,6 +145,13 @@ export default function EditPage() {
 					<div className="flex gap-2 mt-4 justify-center">
 						<button type="submit" className="theme-add-btn">
 							保存
+						</button>
+						<button
+							type="button"
+							onClick={() => handledelete(theme.id)}
+							className="theme-delete-btn"
+						>
+							削除
 						</button>
 						<button
 							type="button"
