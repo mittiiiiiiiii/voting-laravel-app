@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreThemeRequest;
@@ -46,5 +47,20 @@ class ThemeController extends Controller
         $request->session()->regenerate();
 
         return redirect() -> route('Vote.Top');
+    }
+
+    public function edit($id)
+    {
+        $theme = Theme::with('choices')->findOrFail($id);
+
+        // 作成者のみ編集可能
+        if ($theme->user_id !== Auth::id()) {
+            abort(403, '権限がありません。');
+        }
+
+        return Inertia::render('Vote/[id]/Edit', [
+            'theme' => $theme,
+            'choices' => $theme->choices,
+        ]);
     }
 }

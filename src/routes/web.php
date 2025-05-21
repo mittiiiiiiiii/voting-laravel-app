@@ -47,5 +47,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{id}/choice', [VoteController::class, 'choice'])->name('Vote.Choice');
 
         Route::post('/{id}/choice', [VoteController::class, 'store'])->name('Vote.Store');
+
+        Route::get('/{id}/edit', [ThemeController::class, 'edit'])->name('Vote.Edit');
     });
 });
