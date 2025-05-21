@@ -9,10 +9,14 @@ type Theme = {
 	description?: string;
 	deadline?: string;
 	is_closed: boolean;
+	user_id: number;
 };
 
 export default function TopPage() {
-	const { themes } = usePage<{ themes: Theme[] }>().props;
+	const { themes, authUserId } = usePage<{
+		themes: Theme[];
+		authUserId: number;
+	}>().props;
 
 	// const [filter, setFilter] = useState<
 	// 	"all" | "not_started" | "in_progress" | "completed"
@@ -20,12 +24,18 @@ export default function TopPage() {
 
 	// const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
+	console.log("authUserId:", authUserId);
+
 	const handleAddTask = () => {
 		router.get("/vote/new");
 	};
 
 	const handleVote = (themeId: number) => {
 		router.get(`/vote/${themeId}/choice`); // 投票ページに遷移
+	};
+
+	const handleEdit = (themeId: number) => {
+		router.get(`/vote/${themeId}/edit`); // 編集ページに遷移
 	};
 
 	return (
@@ -46,14 +56,25 @@ export default function TopPage() {
 								</p>
 								<p>{theme.is_closed ? "終了済み" : "進行中"}</p>
 							</div>
-							<button
-								type="button"
-								onClick={() => handleVote(theme.id)}
-								className="theme-vote-btn"
-								disabled={theme.is_closed}
-							>
-								投票
-							</button>
+							<div className="button-group">
+								<button
+									type="button"
+									onClick={() => handleVote(theme.id)}
+									className="theme-vote-btn"
+									disabled={theme.is_closed}
+								>
+									投票
+								</button>
+								{theme.user_id === authUserId && (
+									<button
+										type="button"
+										onClick={() => handleEdit(theme.id)}
+										className="theme-edit-btn theme-vote-btn"
+									>
+										編集
+									</button>
+								)}
+							</div>
 						</li>
 					))}
 				</ul>

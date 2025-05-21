@@ -189,6 +189,11 @@
 	background-color: #ffffff;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+.button-group {
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+}
 .theme-vote-btn {
 	font-size: 0.875rem;
 	padding: 0.5rem 1rem;
@@ -205,6 +210,13 @@
 .theme-vote-btn:disabled {
 	background: #d1d5db;
 	cursor: not-allowed;
+}
+.theme-edit-btn {
+	background: #f59e42;
+}
+
+.theme-edit-btn:hover {
+	background: #ea580c;
 }
 
 /* 選択ページ */

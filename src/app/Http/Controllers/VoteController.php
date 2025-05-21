@@ -25,8 +25,12 @@ class VoteController extends Controller
             Log::info('Theme:', ['id' => $theme->id, 'title' => $theme->title]);
         }
 
+        $user = Auth::user();
+        Log::info('ログインユーザー:', ['user' => $user]);
+
         return Inertia::render('Vote/Top', [
             'themes' => $themes,
+            'authUserId' => Auth::id(),
         ]);
     }
 
