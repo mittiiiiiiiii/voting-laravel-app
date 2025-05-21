@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Theme extends Model
+class Choice extends Model
 {
-    /** @use HasFactory<\Database\Factories\ThemeFactory> */
     use HasFactory;
 
     /**
@@ -15,16 +14,14 @@ class Theme extends Model
      *
      * @var string
      */
-    protected $table = 'themes';
+    protected $table = 'choices';
 
     /**
      * @var list<string>
      */
     protected $fillable = [
-        'title',
-        'description',
-        'deadline',
-        'created_by',
+        'theme_id',
+        'text',
     ];
 
     /**
@@ -45,16 +42,11 @@ class Theme extends Model
         ];
     }
 
-    public function choices()
-    {
-        return $this->hasMany(Choice::class, 'theme_id');
-    }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function theme()
     {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->belongsTo(Theme::class, 'theme_id');
     }
 }

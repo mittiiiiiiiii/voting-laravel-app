@@ -1,20 +1,32 @@
-import { router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import "@/sass/style.css";
 
-export default function NewPage() {
+export default function EditPage() {
+	type Choice = {
+		id: string;
+		text: string;
+	};
+
 	type ThemeForm = {
 		title: string;
 		description?: string;
 		deadline?: string;
-		choices: { id: string; text: string }[]; // 選択肢の型
+		choices: Choice[];
 	};
 
-	// 初期値に一意のIDを追加
-	const [choices, setChoices] = useState([
-		{ id: crypto.randomUUID(), text: "" },
-	]);
+	const { theme, choices: initialChoices } = usePage<{
+		theme: {
+			id: number;
+			title: string;
+			description?: string;
+			deadline?: string;
+		};
+		choices: Choice[];
+	}>().props;
+
+	const [choices, setChoices] = useState<Choice[]>(initialChoices);
 
 	const {
 		register,
@@ -22,34 +34,39 @@ export default function NewPage() {
 		formState: { errors },
 	} = useForm<ThemeForm>({
 		defaultValues: {
-			title: "",
-			description: "",
-			deadline: "",
+			title: theme.title,
+			description: theme.description,
+			deadline: theme.deadline,
 		},
 	});
 
 	const handleAddChoice = () => {
-		setChoices([...choices, { id: crypto.randomUUID(), text: "" }]); // 新しい選択肢を追加
+		setChoices([...choices, { id: crypto.randomUUID(), text: "" }]);
 	};
 
 	const handleRemoveChoice = (id: string) => {
-		setChoices(choices.filter((choice) => choice.id !== id)); // 指定した選択肢を削除
+		setChoices(choices.filter((choice) => choice.id !== id));
 	};
 
 	const onSubmit = (data: ThemeForm) => {
-		data.choices = choices; // 選択肢をフォームデータに追加
-		router.post("/vote/new", data);
+		data.choices = choices;
+		router.post(`/vote/${theme.id}/edit`, data);
 	};
 
 	const handleCancel = () => {
-		console.log("キャンセルボタンが押されたよー");
 		router.get("/vote/top");
+	};
+
+	const handledelete = (themeId: number) => {
+		if (confirm("本当に削除しますか？")) {
+			router.post(`/vote/${themeId}/delete`);
+		}
 	};
 
 	return (
 		<div className="theme-container">
 			<div className="theme-box">
-				<h1 className="page-title">投票テーマ作成</h1>
+				<h1 className="page-title">投票テーマ編集</h1>
 				<form onSubmit={handleSubmit(onSubmit)} className="theme-form">
 					<div>
 						<label htmlFor="title" className="theme-label">
@@ -128,6 +145,13 @@ export default function NewPage() {
 					<div className="flex gap-2 mt-4 justify-center">
 						<button type="submit" className="theme-add-btn">
 							保存
+						</button>
+						<button
+							type="button"
+							onClick={() => handledelete(theme.id)}
+							className="theme-delete-btn"
+						>
+							削除
 						</button>
 						<button
 							type="button"

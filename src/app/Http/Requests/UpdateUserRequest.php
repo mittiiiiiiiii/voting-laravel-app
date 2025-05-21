@@ -11,7 +11,7 @@ use DateTime;
 use App\Rules\Recaptcha;
 use function Laravel\Prompts\error;
 
-class StoreThemeRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -41,28 +41,22 @@ class StoreThemeRequest extends FormRequest
             //$customer = $this->route('customer');
 
         return [
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'deadline' => 'nullable|date|after:now',
-            'choices' => 'required|array|min:1',
-            'choices.*.text' => 'required|string|max:255',
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email',
+            'password' => 'required|string|min:6',
         ];
     }
 
     public function messages() {
         return [
-            'title.required' => 'タイトルは必須です。',
-            'title.string'   => 'タイトルは文字列で入力してください。',
-            'title.max'      => 'タイトルは255文字以内で入力してください。',
-            'description.string' => '説明は文字列で入力してください。',
-            'deadline.date'  => '締切は有効な日付形式で入力してください。',
-            'deadline.after' => '締切は現在時刻以降に設定してください。',
-            'choices.required' => '選択肢は少なくとも1つ必要です。',
-            'choices.array' => '選択肢は配列形式で入力してください。',
-            'choices.min' => '選択肢は少なくとも1つ必要です。',
-            'choices.*.text.required' => '各選択肢のテキストは必須です。',
-            'choices.*.text.string' => '各選択肢のテキストは文字列で入力してください。',
-            'choices.*.text.max' => '各選択肢のテキストは255文字以内で入力してください。',
+            'name.required' => 'nameは必須です。',
+            'name.string'   => 'nameは文字列でなければなりません。',
+            'name.max'      => 'nameは255文字以内でなければなりません。',
+            'email.required' => 'emailは必須です。',
+            'email.email'   => 'emailは正しい形式でなければなりません。',
+            'password.required' => 'passwordは必須です。',
+            'password.string'   => 'passwordは文字列でなければなりません。',
+            'password.min'      => 'passwordは6文字以上でなければなりません。',
         ];
     }
 

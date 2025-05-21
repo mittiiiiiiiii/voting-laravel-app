@@ -23,3 +23,9 @@ $ npm run dev
 ```bash
 $ tail -f storage/logs/laravel.log
 ```
+
+# できたところまで
+
+- ユーザーが投票テーマを作成
+- 他のユーザーが投票できる
+- 関係DB設計（ユーザー×テーマ×投票）を構築

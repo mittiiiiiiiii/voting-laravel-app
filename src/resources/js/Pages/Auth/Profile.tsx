@@ -1,30 +1,41 @@
-import { Link, router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import { useForm } from "react-hook-form";
 import "@/sass/style.css";
-import type { UserData } from "@/types/FormData";
+import type { UserData, UserProps } from "@/types/FormData";
 
-export default function Login() {
+export default function ProfilePage() {
+	const { user } = usePage<UserProps>().props;
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<UserData>({
 		defaultValues: {
-			email: "",
+			name: user.name || "",
+			email: user.email || "",
 			password: "",
 		},
 	});
 
 	const onSubmit = (data: UserData) => {
-		console.log("ボタンが押されたよー", data);
-		router.post("/auth/login", data);
+		router.post("/auth/profile", data);
 	};
 
 	return (
 		<div className="form-container">
 			<div className="form-box">
-				<h1 className="page-title">ログインページ</h1>
-				<form onSubmit={handleSubmit(onSubmit)} noValidate>
+				<h1 className="page-title">プロフィール編集</h1>
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<input
+						type="text"
+						{...register("name", { required: "名前は必須です" })}
+						placeholder="名前"
+						className="form-input"
+					/>
+					{errors.name && (
+						<span className="form-error">{errors.name.message}</span>
+					)}
 					<input
 						type="email"
 						{...register("email", { required: "メールアドレスは必須です" })}
@@ -36,23 +47,17 @@ export default function Login() {
 					)}
 					<input
 						type="password"
-						{...register("password", { required: "パスワードは必須です" })}
-						placeholder="パスワード"
+						{...register("password")}
+						placeholder="パスワード（変更時のみ入力）"
 						className="form-input"
 					/>
 					{errors.password && (
 						<span className="form-error">{errors.password.message}</span>
 					)}
 					<button type="submit" className="form-button">
-						ログイン
+						保存
 					</button>
 				</form>
-				<p className="form-bottom-text">
-					アカウントをお持ちでない方は
-					<a href="/auth/register" className="navigation-link">
-						こちら
-					</a>
-				</p>
 			</div>
 		</div>
 	);

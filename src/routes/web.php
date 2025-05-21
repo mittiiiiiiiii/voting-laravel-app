@@ -13,7 +13,7 @@ use App\Http\Controllers\VoteController;
 use App\Http\Controllers\ThemeController;
 
 Route::get('/', function () {
-    return redirect()->route('Login');
+    return redirect()->route('login');
 });
 
 Route::get('/preview', function () {
@@ -29,18 +29,33 @@ Route::prefix('auth')->group(function () {
 
     Route::get('/login', function () {
         return Inertia::render('Auth/Login');
-    })->name('Login');
+    })->name('login');
 
     Route::post('/login', [UserController::class, 'login']);
+
+    Route::get('/profile', [UserController::class, 'edit'])->name('Profile.edit');
+
+    Route::post('/profile', [UserController::class, 'update'])->name('Profile.update');
 });
 
-Route::prefix('vote')->group(function () {
-    Route::get('/top', [VoteController::class, 'top'])->name('Vote.Top');
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('vote')->group(function () {
+        Route::get('/top', [VoteController::class, 'top'])->name('Vote.Top');
 
-    Route::get('/new', function () {
-        return Inertia::render('Vote/New');
-    })->name('Vote.New');
+        Route::get('/new', function () {
+            return Inertia::render('Vote/New');
+        })->name('Vote.New');
 
-    Route::post('/new', [ThemeController::class, 'store']);
+        Route::post('/new', [ThemeController::class, 'store']);
+
+        Route::get('/{id}/choice', [VoteController::class, 'choice'])->name('Vote.Choice');
+
+        Route::post('/{id}/choice', [VoteController::class, 'store'])->name('Vote.Store');
+
+        Route::get('/{id}/edit', [ThemeController::class, 'edit'])->name('Vote.Edit');
+
+        Route::post('/{id}/edit', [ThemeController::class, 'update'])->name('Vote.Update');
+
+        Route::post('/{id}/delete', [ThemeController::class, 'delete'])->name('Vote.Update');
+    });
 });
-
