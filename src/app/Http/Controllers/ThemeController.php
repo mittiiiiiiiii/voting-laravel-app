@@ -103,4 +103,9 @@ class ThemeController extends Controller
 
         return redirect()->route('Vote.Top')->with('success', 'テーマが削除されました。');
     }
+
+    public function complete($id)
+    {
+        return Inertia::render('Vote/[id]/Complete');
+    }
 }
