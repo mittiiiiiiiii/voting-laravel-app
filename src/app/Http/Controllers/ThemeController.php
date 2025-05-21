@@ -9,6 +9,7 @@ use App\Http\Requests\StoreThemeRequest;
 use App\Models\Theme;
 use App\Models\Choice;
 use App\Models\Vote;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Auth\Events\Registered;
@@ -82,6 +83,15 @@ class ThemeController extends Controller
             'description' => $validated['description'],
             'deadline' => $validated['deadline'],
         ]);
+
+        $now = Carbon::now();
+
+        // 締め切り時間が現在時刻より後であれば is_closed を false に設定
+        if (Carbon::parse($validated['deadline'])->gt($now)) {
+            $theme->is_closed = false;
+        }
+
+        $theme->save();
 
         // 既存の選択肢を削除して新しい選択肢を保存
         $theme->choices()->delete();
