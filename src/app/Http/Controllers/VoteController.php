@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreVoteRequest;
 use App\Models\Theme;
 use App\Models\Vote;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Auth\Events\Registered;
@@ -18,6 +19,15 @@ class VoteController extends Controller
     public function top()
     {
         Log::info('Test1');
+
+        $now = Carbon::now();
+
+        // 期限が過ぎたテーマを取得して更新
+        $expiredThemes = Theme::where('deadline', '<', $now)
+            ->where('is_closed', false)
+            ->update(['is_closed' => true]);
+
+        Log::info("期限が過ぎたテーマを終了しました: {$expiredThemes} 件");
 
         $themes = Theme::all();
 
