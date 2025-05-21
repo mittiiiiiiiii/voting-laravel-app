@@ -43,7 +43,7 @@ export default function NewPage() {
 
 	const handleCancel = () => {
 		console.log("キャンセルボタンが押されたよー");
-		router.visit("/vote/top");
+		router.get("/vote/top");
 	};
 
 	return (

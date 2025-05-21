@@ -63,4 +63,30 @@ class ThemeController extends Controller
             'choices' => $theme->choices,
         ]);
     }
+
+    public function update(StoreThemeRequest $request, $id)
+    {
+        $theme = Theme::findOrFail($id);
+
+        // 作成者のみ更新可能
+        if ($theme->user_id !== Auth::id()) {
+            abort(403, '権限がありません。');
+        }
+
+        $validated = $request->validated();
+
+        $theme->update([
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'deadline' => $validated['deadline'],
+        ]);
+
+        // 既存の選択肢を削除して新しい選択肢を保存
+        $theme->choices()->delete();
+        foreach ($validated['choices'] as $choiceData) {
+            $theme->choices()->create(['text' => $choiceData['text']]);
+        }
+
+        return redirect()->route('Vote.Top')->with('success', 'テーマが更新されました。');
+    }
 }

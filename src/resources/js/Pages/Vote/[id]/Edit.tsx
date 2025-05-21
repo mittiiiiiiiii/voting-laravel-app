@@ -50,11 +50,11 @@ export default function EditPage() {
 
 	const onSubmit = (data: ThemeForm) => {
 		data.choices = choices;
-		router.put(`/vote/${theme.id}`, data);
+		router.post(`/vote/${theme.id}/edit`, data);
 	};
 
 	const handleCancel = () => {
-		router.visit("/vote/top");
+		router.get("/vote/top");
 	};
 
 	return (
