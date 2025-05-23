@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreVoteRequest;
 use App\Models\Theme;
 use App\Models\Vote;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Auth\Events\Registered;
@@ -18,6 +19,15 @@ class VoteController extends Controller
     public function top()
     {
         Log::info('Test1');
+
+        $now = Carbon::now();
+
+        // 期限が過ぎたテーマを取得して更新
+        $expiredThemes = Theme::where('deadline', '<', $now)
+            ->where('is_closed', false)
+            ->update(['is_closed' => true]);
+
+        Log::info("期限が過ぎたテーマを終了しました: {$expiredThemes} 件");
 
         $themes = Theme::all();
 
@@ -38,6 +48,22 @@ class VoteController extends Controller
     {
         $theme = Theme::with('choices')->findOrFail($id);
 
+        $isclosed = $theme->is_closed;
+        if ($isclosed) {
+            return redirect()->route('Vote.Result', ['id' => $id]);
+        }
+
+        $user = Auth::user();
+
+        // 既に投票済みか確認
+        $existingVote = Vote::where('user_id', $user->id)
+            ->where('theme_id', $id)
+            ->first();
+
+        if ($existingVote) {
+            return redirect()->route('Vote.Result', ['id' => $id]);
+        }
+
         return Inertia::render('Vote/[id]/Choice', [
             'theme' => $theme,
             'choices' => $theme->choices,
@@ -52,14 +78,14 @@ class VoteController extends Controller
 
         $user = Auth::user();
 
-        // 既に同じテーマに投票しているか確認
-        $existingVote = vote::where('user_id', $user->id)
-            ->where('theme_id', $id)
-            ->first();
+        // // 既に同じテーマに投票しているか確認
+        // $existingVote = vote::where('user_id', $user->id)
+        //     ->where('theme_id', $id)
+        //     ->first();
 
-        if ($existingVote) {
-            return response()->json(['message' => '既にこのテーマに投票済みです。'], 400);
-        }
+        // if ($existingVote) {
+        //     return response()->json(['message' => '既にこのテーマに投票済みです。'], 400);
+        // }
 
         $vote = new Vote();
 
@@ -69,7 +95,7 @@ class VoteController extends Controller
 
         $vote->save();
 
-        return redirect()->route('Vote.Top');
+        return redirect()->route('Vote.Result',['id' => $id]);
     }
 
 }

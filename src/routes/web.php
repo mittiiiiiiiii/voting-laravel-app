@@ -36,6 +36,8 @@ Route::prefix('auth')->group(function () {
     Route::get('/profile', [UserController::class, 'edit'])->name('Profile.edit');
 
     Route::post('/profile', [UserController::class, 'update'])->name('Profile.update');
+
+    Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -51,6 +53,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{id}/choice', [VoteController::class, 'choice'])->name('Vote.Choice');
 
         Route::post('/{id}/choice', [VoteController::class, 'store'])->name('Vote.Store');
+
+        Route::get('/{id}/result', [ThemeController::class, 'Result'])->name('Vote.Result');
 
         Route::get('/{id}/edit', [ThemeController::class, 'edit'])->name('Vote.Edit');
 

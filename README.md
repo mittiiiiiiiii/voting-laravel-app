@@ -24,6 +24,10 @@ $ npm run dev
 $ tail -f storage/logs/laravel.log
 ```
 
+```bash
+docker exec -it <php-container-name> bash
+```
+
 # できたところまで
 
 - ユーザーが投票テーマを作成

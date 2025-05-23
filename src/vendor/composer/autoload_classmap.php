@@ -6,6 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Console\\Commands\\CloseExpiredThemes' => $baseDir . '/app/Console/Commands/CloseExpiredThemes.php',
+    'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\LoginController' => $baseDir . '/app/Http/Controllers/LoginController.php',
     'App\\Http\\Controllers\\RegisterController' => $baseDir . '/app/Http/Controllers/RegisterController.php',
@@ -15,9 +17,13 @@ return array(
     'App\\Http\\Requests\\LoginUserRequest' => $baseDir . '/app/Http/Requests/LoginUserRequest.php',
     'App\\Http\\Requests\\StoreThemeRequest' => $baseDir . '/app/Http/Requests/StoreThemeRequest.php',
     'App\\Http\\Requests\\StoreUserRequest' => $baseDir . '/app/Http/Requests/StoreUserRequest.php',
+    'App\\Http\\Requests\\StoreVoteRequest' => $baseDir . '/app/Http/Requests/StoreVoteRequest.php',
+    'App\\Http\\Requests\\UpdateUserRequest' => $baseDir . '/app/Http/Requests/UpdateUserRequest.php',
+    'App\\Models\\Choice' => $baseDir . '/app/Models/Choice.php',
     'App\\Models\\Task' => $baseDir . '/app/Models/Task.php',
     'App\\Models\\Theme' => $baseDir . '/app/Models/Theme.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
+    'App\\Models\\Vote' => $baseDir . '/app/Models/Vote.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'Brick\\Math\\BigDecimal' => $vendorDir . '/brick/math/src/BigDecimal.php',
@@ -1184,8 +1190,6 @@ return array(
     'Illuminate\\Console\\Events\\ScheduledBackgroundTaskFinished' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Events/ScheduledBackgroundTaskFinished.php',
     'Illuminate\\Console\\Events\\ScheduledTaskFailed' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Events/ScheduledTaskFailed.php',
     'Illuminate\\Console\\Events\\ScheduledTaskFinished' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Events/ScheduledTaskFinished.php',
-    'Illuminate\\Console\\Events\\Scheduledthemekipped' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Events/Scheduledthemekipped.php',
-    'Illuminate\\Console\\Events\\Scheduledthemetarting' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Events/Scheduledthemetarting.php',
     'Illuminate\\Console\\GeneratorCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Console/GeneratorCommand.php',
     'Illuminate\\Console\\ManuallyFailedException' => $vendorDir . '/laravel/framework/src/Illuminate/Console/ManuallyFailedException.php',
     'Illuminate\\Console\\MigrationGeneratorCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Console/MigrationGeneratorCommand.php',

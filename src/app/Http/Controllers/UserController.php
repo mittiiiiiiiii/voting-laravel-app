@@ -48,7 +48,6 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
 
         if(Auth::attempt($credentials)){
-            Auth::login($user);
 
             $request->session()->regenerate();
 
@@ -81,5 +80,16 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('Vote.Top')->with('success', 'プロフィールを更新しました');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login')->with('success', 'ログアウトしました');
     }
 }
