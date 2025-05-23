@@ -18,9 +18,19 @@ export default function TopPage() {
 		authUserId: number;
 	}>().props;
 
-	// const [filter, setFilter] = useState<
-	// 	"all" | "not_started" | "in_progress" | "completed"
-	// >("all");
+	const [filter, setFilter] = useState<"all" | "in_progress" | "closed">("all");
+    const [showMyThemes, setShowMyThemes] = useState<boolean>(false);
+
+    const filteredThemes = themes.filter((theme) => {
+        if (showMyThemes && theme.user_id !== authUserId) {
+            return false;
+        } if (filter === "in_progress") {
+            return !theme.is_closed;
+        } if (filter === "closed") {
+            return theme.is_closed;
+        }
+        return true;
+    });
 
 	// const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
@@ -42,8 +52,38 @@ export default function TopPage() {
 		<div className="theme-container">
 			<div className="theme-box">
 				<h1 className="page-title">投票一覧</h1>
+                <div className="filter-buttons">
+                    <button
+                        type="button"
+                        onClick={() => setFilter("all")}
+                        className={`filter-btn ${filter === "all" ? "active" : ""}`}
+                    >
+                        すべて
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => setFilter("in_progress")}
+                        className={`filter-btn ${filter === "in_progress" ? "active" : ""}`}
+                    >
+                        進行中のみ
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => setFilter("closed")}
+                        className={`filter-btn ${filter === "closed" ? "active" : ""}`}
+                    >
+                        締め切りのみ
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => setShowMyThemes(!showMyThemes)}
+                        className={`filter-btn ${showMyThemes ? "active" : ""}`}
+                    >
+                        自分が作成したテーマ
+                    </button>
+                </div>
 				<ul className="theme-list">
-					{themes.map((theme) => (
+					{filteredThemes.map((theme) => (
 						<li key={theme.id} className="theme-item">
 							<div>
 								<h2>{theme.title}</h2>
