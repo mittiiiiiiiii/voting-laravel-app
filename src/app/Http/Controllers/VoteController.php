@@ -78,14 +78,14 @@ class VoteController extends Controller
 
         $user = Auth::user();
 
-        // 既に同じテーマに投票しているか確認
-        $existingVote = vote::where('user_id', $user->id)
-            ->where('theme_id', $id)
-            ->first();
+        // // 既に同じテーマに投票しているか確認
+        // $existingVote = vote::where('user_id', $user->id)
+        //     ->where('theme_id', $id)
+        //     ->first();
 
-        if ($existingVote) {
-            return response()->json(['message' => '既にこのテーマに投票済みです。'], 400);
-        }
+        // if ($existingVote) {
+        //     return response()->json(['message' => '既にこのテーマに投票済みです。'], 400);
+        // }
 
         $vote = new Vote();
 
