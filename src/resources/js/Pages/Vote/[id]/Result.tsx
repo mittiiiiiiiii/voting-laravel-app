@@ -5,7 +5,10 @@ import {
 	Bar,
 	BarChart,
 	CartesianGrid,
+	Cell,
 	Legend,
+	Pie,
+	PieChart,
 	Tooltip,
 	XAxis,
 	YAxis,
@@ -26,11 +29,24 @@ export default function ResultPage() {
 	const { theme, results } = usePage<{ theme: Theme; results: Result[] }>()
 		.props;
 
-	const colors = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042"];
+	const barColors = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042"];
+	const pieColors = ["#ff9999", "#66b3ff", "#99ff99", "#ffcc99", "#c2c2f0"];
+
 	const resultsWithColors = results.map((result, index) => ({
 		...result,
-		fill: colors[index % colors.length],
+		fill: barColors[index % barColors.length],
 	}));
+
+	const pieResultsWithColors = results
+		.filter((result) => result.votes > 0)
+		.map((result, index) => ({
+			...result,
+			fill: pieColors[index % pieColors.length],
+		}));
+
+	const renderCustomLabel = (entry: Result) => {
+		return `${entry.choice}: ${entry.votes}`;
+	};
 
 	// 時間があればWebSocketに変更したい
 	useEffect(() => {
@@ -72,6 +88,24 @@ export default function ResultPage() {
 						label={{ position: "top" }}
 					/>
 				</BarChart>
+				<PieChart width={450} height={450}>
+					<Pie
+						data={pieResultsWithColors}
+						dataKey="votes"
+						nameKey="choice"
+						cx="50%"
+						cy="50%"
+						outerRadius={150}
+						fill="#8884d8"
+						label={renderCustomLabel}
+					>
+						{pieResultsWithColors.map((entry) => (
+							<Cell key={entry.choice} fill={entry.fill} />
+						))}
+					</Pie>
+					<Tooltip />
+					<Legend />
+				</PieChart>
 			</div>
 			<div className="flex gap-2 mt-4 justify-center">
 				<button type="button" className="theme-add-btn" onClick={handleHome}>

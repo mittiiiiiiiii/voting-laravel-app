@@ -377,34 +377,34 @@
 
 /* フィルター */
 .filter-buttons {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
+	display: flex;
+	gap: 1rem;
+	margin-bottom: 1rem;
 }
 .sort-dropdown {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
+	display: flex;
+	gap: 1rem;
+	margin-bottom: 1rem;
 }
 
 .filter-btn {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 0.375rem;
-    background-color: #e5e7eb;
-    color: #374151;
-    cursor: pointer;
-    transition: background-color 0.2s;
+	padding: 0.5rem 1rem;
+	border: none;
+	border-radius: 0.375rem;
+	background-color: #e5e7eb;
+	color: #374151;
+	cursor: pointer;
+	transition: background-color 0.2s;
 }
 
 .filter-btn.active {
-    background-color: #3b82f6;
-    color: #fff;
+	background-color: #3b82f6;
+	color: #fff;
 }
 
 .filter-btn:hover {
-    background-color: #2563eb;
-    color: #fff;
+	background-color: #2563eb;
+	color: #fff;
 }
 
 .profile-edit-btn {
