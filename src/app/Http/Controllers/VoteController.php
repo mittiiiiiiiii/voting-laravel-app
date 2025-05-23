@@ -48,6 +48,17 @@ class VoteController extends Controller
     {
         $theme = Theme::with('choices')->findOrFail($id);
 
+        $user = Auth::user();
+
+        // 既に投票済みか確認
+        $existingVote = Vote::where('user_id', $user->id)
+            ->where('theme_id', $id)
+            ->first();
+
+        if ($existingVote) {
+            return redirect()->route('Vote.Result', ['id' => $id]);
+        }
+
         return Inertia::render('Vote/[id]/Choice', [
             'theme' => $theme,
             'choices' => $theme->choices,
