@@ -3,17 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreCommentRequest;
 
 class CommentController extends Controller
 {
-    public function store(Request $request)
+    public function store(StoreCommentRequest $request)
     {
-        $request->validate([
-            'vote_id' => 'required|exists:votes,id',
-            'content' => 'required|string|max:500',
-            'parent_id' => 'nullable|exists:comments,id',
-        ]);
 
         Comment::create([
             'vote_id' => $request->input('vote_id'),
