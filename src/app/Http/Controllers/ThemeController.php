@@ -125,6 +125,15 @@ class ThemeController extends Controller
             ->groupBy('choice_id')
             ->get();
 
+        $userVote = Vote::where('theme_id', $id)
+            ->where('user_id', Auth::id())
+            ->first();
+
+        // Log::info('User vote ID:', ['id' => $userVote->id ?? null]);
+        // Log::info('User vote choice ID:', ['choice_id' => $userVote->choice_id ?? null]);
+
+        $userChoiceText = $userVote? $theme->choices->firstWhere('id', $userVote->choice_id)->text : null;
+
         // 選択肢ごとの投票数をマッピング
         $data = $theme->choices->map(function ($choice) use ($results) {
             $result = $results->firstWhere('choice_id', $choice->id);
@@ -137,6 +146,7 @@ class ThemeController extends Controller
         return Inertia::render('Vote/[id]/Result', [
             'theme' => $theme,
             'results' => $data,
+            'userChoice' => $userChoiceText
         ]);
     }
 }
