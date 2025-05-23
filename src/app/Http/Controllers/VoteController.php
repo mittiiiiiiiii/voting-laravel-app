@@ -29,7 +29,7 @@ class VoteController extends Controller
 
         Log::info("期限が過ぎたテーマを終了しました: {$expiredThemes} 件");
 
-        $themes = Theme::all();
+        $themes = Theme::orderBy('deadline', 'asc')->get();
 
         foreach ($themes as $theme) {
             Log::info('Theme:', ['id' => $theme->id, 'title' => $theme->title]);
