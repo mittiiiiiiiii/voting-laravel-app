@@ -433,3 +433,15 @@
 .theme-logout-btn:hover {
 	background-color: #c53030;
 }
+
+
+.user-choice {
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    color: #374151;
+    text-align: center;
+}
+
+.user-choice strong {
+    color: #1d4ed8;
+}
