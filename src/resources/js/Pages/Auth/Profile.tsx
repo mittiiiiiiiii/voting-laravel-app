@@ -64,23 +64,17 @@ export default function ProfilePage() {
 					{errors.password && (
 						<span className="form-error">{errors.password.message}</span>
 					)}
-					<button type="submit" className="form-button">
-						保存
-					</button>
-					<button
-						type="button"
-						onClick={Logouthandle}
-						className="theme-logout-btn"
-					>
-						ログアウト
-					</button>
-					<button
-						type="button"
-						onClick={handleCancel}
-						className="theme-cancel-btn"
-					>
-						キャンセル
-					</button>
+					<div className="button-row">
+                        <button type="submit" className="button button-save">
+                            保存
+                        </button>
+                        <button type="button" onClick={Logouthandle} className="button theme-logout-btn">
+                            ログアウト
+                        </button>
+                        <button type="button" onClick={handleCancel} className="button button-cancel">
+                            キャンセル
+                        </button>
+                    </div>
 				</form>
 			</div>
 		</div>
