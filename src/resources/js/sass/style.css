@@ -381,6 +381,11 @@
     gap: 1rem;
     margin-bottom: 1rem;
 }
+.sort-dropdown {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
 
 .filter-btn {
     padding: 0.5rem 1rem;
