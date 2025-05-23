@@ -65,16 +65,24 @@ export default function ProfilePage() {
 						<span className="form-error">{errors.password.message}</span>
 					)}
 					<div className="button-row">
-                        <button type="submit" className="button button-save">
-                            保存
-                        </button>
-                        <button type="button" onClick={Logouthandle} className="button theme-logout-btn">
-                            ログアウト
-                        </button>
-                        <button type="button" onClick={handleCancel} className="button button-cancel">
-                            キャンセル
-                        </button>
-                    </div>
+						<button type="submit" className="button button-save">
+							保存
+						</button>
+						<button
+							type="button"
+							onClick={Logouthandle}
+							className="button theme-logout-btn"
+						>
+							ログアウト
+						</button>
+						<button
+							type="button"
+							onClick={handleCancel}
+							className="button button-cancel"
+						>
+							キャンセル
+						</button>
+					</div>
 				</form>
 			</div>
 		</div>

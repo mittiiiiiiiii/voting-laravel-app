@@ -1,5 +1,6 @@
 import { usePage } from "@inertiajs/react";
 import { router } from "@inertiajs/react";
+import { useEffect } from "react";
 import {
 	Bar,
 	BarChart,
@@ -30,6 +31,15 @@ export default function ResultPage() {
 		...result,
 		fill: colors[index % colors.length],
 	}));
+
+	// 時間があればWebSocketに変更したい
+	useEffect(() => {
+		const interval = setInterval(() => {
+			router.reload();
+		}, 10000);
+
+		return () => clearInterval(interval);
+	}, []);
 
 	const handleHome = () => {
 		router.get("/vote/top");
