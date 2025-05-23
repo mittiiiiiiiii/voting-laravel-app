@@ -24,7 +24,7 @@ export default function TopPage() {
 
 	// const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
-	console.log("authUserId:", authUserId);
+	// console.log("authUserId:", authUserId);
 
 	const handleAddTask = () => {
 		router.get("/vote/new");
@@ -61,7 +61,6 @@ export default function TopPage() {
 									type="button"
 									onClick={() => handleVote(theme.id)}
 									className="theme-vote-btn"
-									disabled={theme.is_closed}
 								>
 									投票
 								</button>

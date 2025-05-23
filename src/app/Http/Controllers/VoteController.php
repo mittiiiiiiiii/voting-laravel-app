@@ -48,6 +48,11 @@ class VoteController extends Controller
     {
         $theme = Theme::with('choices')->findOrFail($id);
 
+        $isclosed = $theme->is_closed;
+        if ($isclosed) {
+            return redirect()->route('Vote.Result', ['id' => $id]);
+        }
+
         $user = Auth::user();
 
         // 既に投票済みか確認
