@@ -78,6 +78,10 @@ class ThemeController extends Controller
 
         $validated = $request->validated();
 
+        $theme->title = $validated['title'];
+        $theme->description = $validated['description'];
+        $theme->deadline = $validated['deadline'];
+
         $now = Carbon::now();
 
         // 締め切り時間が現在時刻より後であれば is_closed を false に設定
