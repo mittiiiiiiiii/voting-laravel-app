@@ -71,7 +71,7 @@ class UserController extends Controller
     {
         $user = $request->user();
 
-        $validated = $request->validated();
+        // $validated = $request->validated();
 
         $user->update([
             'name' => $request->input('name'),
