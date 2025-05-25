@@ -44,7 +44,7 @@ class VoteController extends Controller
         ]);
     }
 
-    public function choice(Request $request, $id)
+    public function choice($id)
     {
         $theme = Theme::with('choices')->findOrFail($id);
 
