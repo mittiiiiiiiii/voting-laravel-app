@@ -78,9 +78,11 @@ class ThemeController extends Controller
 
         $validated = $request->validated();
 
-        $theme->title = $validated['title'];
-        $theme->description = $validated['description'];
-        $theme->deadline = $validated['deadline'];
+        $theme->update([
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'deadline' => $validated['deadline'],
+        ]);
 
         $now = Carbon::now();
 
