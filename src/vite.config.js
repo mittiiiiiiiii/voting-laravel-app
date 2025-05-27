@@ -10,17 +10,13 @@ export default defineConfig({
         },
     },
     server: {
-        host: true,
-        hmr: {
-            host: 'localhost',
-        },
-        watch: {
-            usePolling: true,
-        },
+        host: '127.0.0.1',
+        port: 5173,
+        origin: 'http://127.0.0.1:5173'
     },
     plugins: [
         laravel({
-            input: ['resources/js/app.js', 'resources/js/sass/style.css'],
+            input: ['resources/js/app.tsx', 'resources/js/sass/style.css'],
             refresh: true,
         }),
         tailwindcss(),
