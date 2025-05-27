@@ -20,7 +20,7 @@ export default defineConfig({
     },
     plugins: [
         laravel({
-            input: ['resources/js/app.js', 'resources/js/sass/style.css'],
+            input: ['resources/js/app.tsx', 'resources/js/sass/style.css'],
             refresh: true,
         }),
         tailwindcss(),
