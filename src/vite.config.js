@@ -2,6 +2,7 @@ import path from 'node:path';
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import { globSync } from 'glob';
+import react from '@vitejs/plugin-react';
 
 const pageEntries = globSync('resources/js/Pages/**/*.tsx')
 const input = [
