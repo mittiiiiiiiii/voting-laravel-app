@@ -52,7 +52,9 @@ export default function NewPage() {
 				<h1 className="text-center text-2xl font-bold mb-8">投票テーマ作成</h1>
 				<form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
 					<div>
-						<label htmlFor="title" className="block font-semibold mb-1">タイトル（必須）</label>
+						<label htmlFor="title" className="block font-semibold mb-1">
+							タイトル（必須）
+						</label>
 						<input
 							id="title"
 							type="text"
@@ -61,11 +63,15 @@ export default function NewPage() {
 							placeholder="例: 好きな色は？"
 						/>
 						{errors.title && (
-							<span className="text-red-500 text-sm mb-2 block">{errors.title.message}</span>
+							<span className="text-red-500 text-sm mb-2 block">
+								{errors.title.message}
+							</span>
 						)}
 					</div>
 					<div>
-						<label htmlFor="description" className="block font-semibold mb-1">説明</label>
+						<label htmlFor="description" className="block font-semibold mb-1">
+							説明
+						</label>
 						<input
 							id="description"
 							type="text"
@@ -74,7 +80,9 @@ export default function NewPage() {
 						/>
 					</div>
 					<div>
-						<label htmlFor="deadline" className="block font-semibold mb-1">締切日時</label>
+						<label htmlFor="deadline" className="block font-semibold mb-1">
+							締切日時
+						</label>
 						<input
 							id="deadline"
 							type="datetime-local"
@@ -86,7 +94,9 @@ export default function NewPage() {
 						<h2 className="font-semibold mb-2">選択肢</h2>
 						{choices.map((choice) => (
 							<div key={choice.id} className="flex items-center gap-2 mb-2">
-								<label htmlFor={`choice-${choice.id}`} className="sr-only">選択肢</label>
+								<label htmlFor={`choice-${choice.id}`} className="sr-only">
+									選択肢
+								</label>
 								<input
 									id={`choice-${choice.id}`}
 									type="text"
@@ -118,7 +128,12 @@ export default function NewPage() {
 						</button>
 					</div>
 					<div className="flex gap-2 mt-4 justify-center">
-						<button type="submit" className="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-md transition">保存</button>
+						<button
+							type="submit"
+							className="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-md transition"
+						>
+							保存
+						</button>
 						<button
 							type="button"
 							onClick={handleCancel}

@@ -66,11 +66,14 @@ export default function ResultPage() {
 
 	return (
 		<div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center py-10">
-			<h1 className="text-center text-2xl font-bold mb-6">{theme.title} の投票結果</h1>
+			<h1 className="text-center text-2xl font-bold mb-6">
+				{theme.title} の投票結果
+			</h1>
 			{userChoice && (
 				<div className="my-4 text-lg text-center text-gray-700">
 					<p>
-						あなたが投票した選択肢: <strong className="text-blue-700">{userChoice}</strong>
+						あなたが投票した選択肢:{" "}
+						<strong className="text-blue-700">{userChoice}</strong>
 					</p>
 				</div>
 			)}
@@ -113,7 +116,11 @@ export default function ResultPage() {
 				</PieChart>
 			</div>
 			<div className="flex gap-2 mt-4 justify-center">
-				<button type="button" className="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-md transition" onClick={handleHome}>
+				<button
+					type="button"
+					className="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-md transition"
+					onClick={handleHome}
+				>
 					トップページに戻る
 				</button>
 			</div>

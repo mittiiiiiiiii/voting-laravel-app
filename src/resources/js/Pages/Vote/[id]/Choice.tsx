@@ -50,7 +50,12 @@ export default function ChoicePage() {
 				<h1 className="text-center text-2xl font-bold mb-6">{theme.title}</h1>
 				<div className="mb-6 p-4 bg-gray-100 rounded-md">
 					<p className="text-base text-gray-700 mb-1">{theme.description}</p>
-					<p className="text-sm text-blue-700 font-bold">締切: {theme.deadline ? new Date(theme.deadline).toLocaleString() : "なし"}</p>
+					<p className="text-sm text-blue-700 font-bold">
+						締切:{" "}
+						{theme.deadline
+							? new Date(theme.deadline).toLocaleString()
+							: "なし"}
+					</p>
 				</div>
 				<ul className="space-y-2 mb-8">
 					{choices.map((choice) => (
@@ -67,7 +72,11 @@ export default function ChoicePage() {
 					))}
 				</ul>
 				<div className="flex gap-2 mt-4 justify-center">
-					<button type="button" className="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-md transition" onClick={handleVote}>
+					<button
+						type="button"
+						className="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-md transition"
+						onClick={handleVote}
+					>
 						投票する
 					</button>
 					<button
