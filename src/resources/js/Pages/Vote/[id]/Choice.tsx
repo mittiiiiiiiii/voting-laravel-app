@@ -45,24 +45,19 @@ export default function ChoicePage() {
 	};
 
 	return (
-		<div className="theme-container">
-			<div className="theme-box">
-				<h1 className="page-title">{theme.title}</h1>
-				<div className="theme-details">
-					<p className="theme-description">{theme.description}</p>
-					<p className="theme-deadline text-blue">
-						締切:{" "}
-						{theme.deadline
-							? new Date(theme.deadline).toLocaleString()
-							: "なし"}
-					</p>
+		<div className="min-h-screen bg-gray-100 flex items-start justify-center py-10">
+			<div className="w-full max-w-xl bg-white rounded-lg shadow-md p-8">
+				<h1 className="text-center text-2xl font-bold mb-6">{theme.title}</h1>
+				<div className="mb-6 p-4 bg-gray-100 rounded-md">
+					<p className="text-base text-gray-700 mb-1">{theme.description}</p>
+					<p className="text-sm text-blue-700 font-bold">締切: {theme.deadline ? new Date(theme.deadline).toLocaleString() : "なし"}</p>
 				</div>
-				<ul className="choice-list">
+				<ul className="space-y-2 mb-8">
 					{choices.map((choice) => (
 						<li key={choice.id}>
 							<button
 								type="button"
-								className={`choice-button ${selectedChoice === choice.id ? "selected" : ""}`}
+								className={`w-full text-left px-4 py-3 rounded-md border border-gray-300 bg-gray-50 transition cursor-pointer text-base font-medium hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-200 ${selectedChoice === choice.id ? "bg-blue-600 text-white border-blue-600" : ""}`}
 								onClick={() => handleChoiceClick(choice.id)}
 								onKeyDown={(event) => handleChoiceKeyDown(event, choice.id)}
 							>
@@ -72,13 +67,13 @@ export default function ChoicePage() {
 					))}
 				</ul>
 				<div className="flex gap-2 mt-4 justify-center">
-					<button type="submit" className="theme-add-btn" onClick={handleVote}>
+					<button type="button" className="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-md transition" onClick={handleVote}>
 						投票する
 					</button>
 					<button
 						type="button"
 						onClick={handleCancel}
-						className="theme-cancel-btn"
+						className="bg-gray-400 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-md transition"
 					>
 						キャンセル
 					</button>
