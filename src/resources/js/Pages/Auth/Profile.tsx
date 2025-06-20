@@ -33,52 +33,50 @@ export default function ProfilePage() {
 	};
 
 	return (
-		<div className="form-container">
-			<div className="form-box">
-				<h1 className="page-title">プロフィール</h1>
+		<div className="flex min-h-screen items-center justify-center bg-gray-50">
+			<div className="w-full max-w-xl bg-white p-8 rounded-lg shadow-md">
+				<h1 className="text-center text-xl font-bold mb-6">プロフィール</h1>
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<input
 						type="text"
 						{...register("name", { required: "名前は必須です" })}
 						placeholder="名前"
-						className="form-input"
+						className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none mb-1 transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
 					/>
 					{errors.name && (
-						<span className="form-error">{errors.name.message}</span>
+						<span className="text-red-500 text-sm mb-2 block">{errors.name.message}</span>
 					)}
 					<input
 						type="email"
 						{...register("email", { required: "メールアドレスは必須です" })}
 						placeholder="メールアドレス"
-						className="form-input"
+						className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none mb-1 transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
 					/>
 					{errors.email && (
-						<span className="form-error">{errors.email.message}</span>
+						<span className="text-red-500 text-sm mb-2 block">{errors.email.message}</span>
 					)}
 					<input
 						type="password"
 						{...register("password")}
 						placeholder="パスワード（変更時のみ入力）"
-						className="form-input"
+						className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none mb-1 transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
 					/>
 					{errors.password && (
-						<span className="form-error">{errors.password.message}</span>
+						<span className="text-red-500 text-sm mb-2 block">{errors.password.message}</span>
 					)}
-					<div className="button-row">
-						<button type="submit" className="button button-save">
-							保存
-						</button>
+					<div className="flex gap-4 justify-center mt-4">
+						<button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition">保存</button>
 						<button
 							type="button"
 							onClick={Logouthandle}
-							className="button theme-logout-btn"
+							className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-md transition"
 						>
 							ログアウト
 						</button>
 						<button
 							type="button"
 							onClick={handleCancel}
-							className="button button-cancel"
+							className="bg-gray-400 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-md transition"
 						>
 							キャンセル
 						</button>
