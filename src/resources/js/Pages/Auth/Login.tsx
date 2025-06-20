@@ -23,7 +23,7 @@ export default function Login() {
 	return (
 		<div className="form-container">
 			<div className="form-box">
-				<h1 className="page-title">ログインページ</h1>
+				<h1 className="text-red-500 text-center text-xl font-bold mb-6">ログインページ</h1>
 				<form onSubmit={handleSubmit(onSubmit)} noValidate>
 					<input
 						type="email"
