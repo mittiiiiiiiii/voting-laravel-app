@@ -1,4 +1,7 @@
 /// <reference types="vite/client" />
+import '../sass/app.scss'
+import './bootstrap'
+
 import Layout from "@/Layout";
 import { createInertiaApp } from "@inertiajs/react";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
