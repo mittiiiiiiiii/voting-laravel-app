@@ -23,6 +23,5 @@ export default defineConfig({
             input: ['resources/js/app.tsx', 'resources/js/sass/style.css'],
             refresh: true,
         }),
-        tailwindcss(),
     ],
 });
