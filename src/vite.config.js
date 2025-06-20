@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import { globSync } from 'glob';
 
 const pageEntries = globSync('resources/js/Pages/**/*.tsx')
 const input = [
@@ -29,6 +30,6 @@ export default defineConfig({
             input,
             refresh: true,
         }),
-        tailwindcss(),
+        react(),
     ],
 });
