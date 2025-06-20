@@ -26,8 +26,11 @@ export default function ResultPage() {
 		title: string;
 	};
 
-	const { theme, results,userChoice } = usePage<{ theme: Theme; results: Result[]; userChoice: string | null; }>()
-		.props;
+	const { theme, results, userChoice } = usePage<{
+		theme: Theme;
+		results: Result[];
+		userChoice: string | null;
+	}>().props;
 
 	const barColors = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042"];
 	const pieColors = ["#ff9999", "#66b3ff", "#99ff99", "#ffcc99", "#c2c2f0"];
@@ -64,11 +67,13 @@ export default function ResultPage() {
 	return (
 		<div className="complete-container">
 			<h1 className="page-title">{theme.title} の投票結果</h1>
-            {userChoice && (
-                <div className="user-choice">
-                    <p>あなたが投票した選択肢: <strong>{userChoice}</strong></p>
-                </div>
-            )}
+			{userChoice && (
+				<div className="user-choice">
+					<p>
+						あなたが投票した選択肢: <strong>{userChoice}</strong>
+					</p>
+				</div>
+			)}
 			<div className="result-container">
 				<BarChart
 					width={600}

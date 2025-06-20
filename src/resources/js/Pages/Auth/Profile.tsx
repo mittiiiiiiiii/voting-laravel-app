@@ -44,7 +44,9 @@ export default function ProfilePage() {
 						className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none mb-1 transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
 					/>
 					{errors.name && (
-						<span className="text-red-500 text-sm mb-2 block">{errors.name.message}</span>
+						<span className="text-red-500 text-sm mb-2 block">
+							{errors.name.message}
+						</span>
 					)}
 					<input
 						type="email"
@@ -53,7 +55,9 @@ export default function ProfilePage() {
 						className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none mb-1 transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
 					/>
 					{errors.email && (
-						<span className="text-red-500 text-sm mb-2 block">{errors.email.message}</span>
+						<span className="text-red-500 text-sm mb-2 block">
+							{errors.email.message}
+						</span>
 					)}
 					<input
 						type="password"
@@ -62,10 +66,17 @@ export default function ProfilePage() {
 						className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none mb-1 transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
 					/>
 					{errors.password && (
-						<span className="text-red-500 text-sm mb-2 block">{errors.password.message}</span>
+						<span className="text-red-500 text-sm mb-2 block">
+							{errors.password.message}
+						</span>
 					)}
 					<div className="flex gap-4 justify-center mt-4">
-						<button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition">保存</button>
+						<button
+							type="submit"
+							className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition"
+						>
+							保存
+						</button>
 						<button
 							type="button"
 							onClick={Logouthandle}
