@@ -80,45 +80,72 @@ export default function TopPage() {
 	};
 
 	return (
-		<div className="theme-container">
-			<div className="theme-box">
-				<h1 className="page-title">投票一覧</h1>
-				<div className="filter-buttons">
+		<div className="min-h-screen bg-gray-100 flex items-start justify-center py-10">
+			<div className="w-full max-w-4xl bg-white rounded-lg shadow-md p-8">
+				<h1 className="text-center text-2xl font-bold mb-8">投票一覧</h1>
+				<div className="flex flex-wrap gap-2 mb-4 justify-center">
 					<button
 						type="button"
 						onClick={() => setFilter("all")}
-						className={`filter-btn ${filter === "all" ? "active" : ""}`}
+						className={`px-4 py-2 rounded-md border border-blue-500 transition
+							${
+								filter === "all"
+									? "bg-blue-500 text-white"
+									: "bg-white text-blue-500 hover:bg-blue-100"
+							}
+						`}
 					>
 						すべて
 					</button>
 					<button
 						type="button"
 						onClick={() => setFilter("in_progress")}
-						className={`filter-btn ${filter === "in_progress" ? "active" : ""}`}
+						className={`px-4 py-2 rounded-md border border-blue-500 transition
+							${
+								filter === "in_progress"
+									? "bg-blue-500 text-white"
+									: "bg-white text-blue-500 hover:bg-blue-100"
+							}
+						`}
 					>
 						進行中のみ
 					</button>
 					<button
 						type="button"
 						onClick={() => setFilter("closed")}
-						className={`filter-btn ${filter === "closed" ? "active" : ""}`}
+						className={`px-4 py-2 rounded-md border border-blue-500 transition
+							${
+								filter === "closed"
+									? "bg-blue-500 text-white"
+									: "bg-white text-blue-500 hover:bg-blue-100"
+							}
+						`}
 					>
 						締め切りのみ
 					</button>
 					<button
 						type="button"
 						onClick={() => setShowMyThemes(!showMyThemes)}
-						className={`filter-btn ${showMyThemes ? "active" : ""}`}
+						className={`px-4 py-2 rounded-md border border-blue-500 transition
+							${
+								showMyThemes
+									? "bg-blue-500 text-white"
+									: "bg-white text-blue-500 hover:bg-blue-100"
+							}
+						`}
 					>
 						自分が作成したテーマ
 					</button>
 				</div>
-				<div className="sort-dropdown">
-					<label htmlFor="sort">並べ替え:</label>
+				<div className="flex items-center gap-2 mb-6">
+					<label htmlFor="sort" className="text-gray-700">
+						並べ替え:
+					</label>
 					<select
 						id="sort"
 						value={sortOption}
 						onChange={(e) => setSortOption(e.target.value as typeof sortOption)}
+						className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:border-blue-400"
 					>
 						<option value="created_asc">作成日: 昇順</option>
 						<option value="created_desc">作成日: 降順</option>
@@ -126,25 +153,36 @@ export default function TopPage() {
 						<option value="deadline_desc">締め切り: 降順</option>
 					</select>
 				</div>
-				<ul className="theme-list">
+				<ul className="space-y-4 mb-8">
 					{sortedThemes.map((theme) => (
-						<li key={theme.id} className="theme-item">
+						<li
+							key={theme.id}
+							className="flex justify-between items-center p-6 border border-gray-200 rounded-lg bg-white shadow-sm hover:shadow-md transition"
+						>
 							<div>
-								<h2>{theme.title}</h2>
-								<p>{theme.description}</p>
-								<p>
+								<h2 className="text-lg font-bold text-gray-800 mb-1">
+									{theme.title}
+								</h2>
+								<p className="text-sm text-gray-600 mb-1">
+									{theme.description}
+								</p>
+								<p className="text-xs text-gray-500 mb-1">
 									締切:{" "}
 									{theme.deadline
 										? new Date(theme.deadline).toLocaleString()
 										: "なし"}
 								</p>
-								<p>{theme.is_closed ? "終了済み" : "進行中"}</p>
+								<p
+									className={`text-sm font-bold ${theme.is_closed ? "text-gray-400" : "text-blue-600"}`}
+								>
+									{theme.is_closed ? "終了済み" : "進行中"}
+								</p>
 							</div>
-							<div className="button-group">
+							<div className="flex gap-2 items-center">
 								<button
 									type="button"
 									onClick={() => handleVote(theme.id)}
-									className="theme-vote-btn"
+									className="bg-blue-500 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-md transition"
 								>
 									投票
 								</button>
@@ -152,7 +190,7 @@ export default function TopPage() {
 									<button
 										type="button"
 										onClick={() => handleEdit(theme.id)}
-										className="theme-edit-btn theme-vote-btn"
+										className="bg-orange-400 hover:bg-orange-600 text-white text-sm px-4 py-2 rounded-md transition"
 									>
 										編集
 									</button>
@@ -161,7 +199,11 @@ export default function TopPage() {
 						</li>
 					))}
 				</ul>
-				<button type="button" onClick={handleAddTask} className="theme-add-btn">
+				<button
+					type="button"
+					onClick={handleAddTask}
+					className="w-full max-w-xs mx-auto block bg-green-500 hover:bg-green-700 text-white font-semibold py-3 rounded-md transition"
+				>
 					投票フォームを追加
 				</button>
 			</div>
