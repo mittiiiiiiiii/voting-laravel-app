@@ -15,6 +15,7 @@ $ exit
 # npm install
 $ make app
 $ npm install
+$ npm install -D @tailwindcss/postcss
 $ npm run dev
 ```
 
