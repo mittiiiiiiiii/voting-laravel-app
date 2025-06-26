@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use DateTime;
 use App\Rules\Recaptcha;
 use function Laravel\Prompts\error;
+use Inertia\Inertia;
 
 class StoreThemeRequest extends FormRequest
 {
@@ -76,22 +77,25 @@ class StoreThemeRequest extends FormRequest
      */
     protected function failedValidation(Validator $validator)
     {
-        $errors = $validator->errors()->toArray();
-        // エラー内容をログに出力
-        $errorMessage = '';
-        foreach ($errors as $field => $messages) {
-            $errorMessage .= "$field: " . implode(', ', $messages) . "\n";
+        $errors = $validator->errors();
+
+        if ($this->expectsJson()) {
+            // Inertiaリクエストの場合はInertiaのエラーリダイレクト
+            if ($this->header('X-Inertia')) {
+                throw new HttpResponseException(
+                    redirect()->back()->withErrors($errors, $this->errorBag)->withInput()
+                );
+            }
+            // 通常のAPIリクエストの場合はJSON
+            throw new HttpResponseException(
+                response()->json([
+                    'status' => 422,
+                    'message' => $errors->first(),
+                    'errors' => $errors,
+                ], 422)
+            );
         }
 
-        Log::info('errorMessage');
-        Log::info($errorMessage);
-
-        $response = [
-            'status' => 422,
-            'message' => array_values($errors)[0][0],
-            'errors' => $validator,
-        ];
-
-        throw new HttpResponseException(response()->json($response, 422));
+        parent::failedValidation($validator);
     }
 }
