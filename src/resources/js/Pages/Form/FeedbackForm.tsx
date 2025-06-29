@@ -26,6 +26,7 @@ export default function FeedbackForm() {
 	const onSubmit = (data: FeedbackFormType) => {
         console.log("送信内容", data);
 		router.get("/vote/top");
+        // TODO: ありがとうモーダルをだしたい
 	};
 
 	const handleCancel = () => {
