@@ -16,7 +16,11 @@ export default function EditPage() {
 		choices: Choice[];
 	};
 
-	const { theme, choices: initialChoices, errors = {} } = usePage<{
+	const {
+		theme,
+		choices: initialChoices,
+		errors = {},
+	} = usePage<{
 		theme: {
 			id: number;
 			title: string;

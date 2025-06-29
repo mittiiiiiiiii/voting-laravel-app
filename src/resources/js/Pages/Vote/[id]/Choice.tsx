@@ -64,9 +64,7 @@ export default function ChoicePage() {
 							: "なし"}
 					</p>
 				</div>
-				{error && (
-					<p className="text-red-500 text-sm mb-4">{error}</p>
-				)}
+				{error && <p className="text-red-500 text-sm mb-4">{error}</p>}
 				<ul className="space-y-2 mb-8">
 					{choices.map((choice) => (
 						<li key={choice.id}>
