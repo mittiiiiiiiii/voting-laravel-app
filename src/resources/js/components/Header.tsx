@@ -1,4 +1,5 @@
 import ProfileButton from "@/components/profile";
+import ContactButton from "@/components/ContactButton";
 
 export default function Header() {
 	return (
@@ -15,7 +16,10 @@ export default function Header() {
 			<h1 style={{ fontSize: "1.5rem", fontWeight: "bold", margin: 0 }}>
 				投票アプリ
 			</h1>
-			<ProfileButton />
+			<div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+				<ContactButton />
+				<ProfileButton />
+			</div>
 		</header>
 	);
 }
