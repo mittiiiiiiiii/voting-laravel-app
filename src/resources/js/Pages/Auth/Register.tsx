@@ -1,5 +1,5 @@
 import type { UserData } from "@/types/FormData";
-import { router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import { useForm } from "react-hook-form";
 import "@/sass/style.css";
 
@@ -7,7 +7,7 @@ export default function Register() {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors: rhfErrors },
 	} = useForm<UserData>({
 		defaultValues: {
 			name: "",
@@ -15,6 +15,11 @@ export default function Register() {
 			password: "",
 		},
 	});
+
+	// Inertiaのバリデーションエラー
+	const { errors = {} } = usePage().props as {
+		errors?: { [key: string]: string };
+	};
 
 	const onSubmit = (data: UserData) => {
 		console.log("ボタンが押されたよー", data);
@@ -34,9 +39,14 @@ export default function Register() {
 						placeholder="名前"
 						className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none mb-1 transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
 					/>
+					{rhfErrors.name && (
+						<span className="text-red-500 text-sm mb-2 block">
+							{rhfErrors.name.message}
+						</span>
+					)}
 					{errors.name && (
 						<span className="text-red-500 text-sm mb-2 block">
-							{errors.name.message}
+							{errors.name}
 						</span>
 					)}
 					<input
@@ -45,9 +55,14 @@ export default function Register() {
 						placeholder="メールアドレス"
 						className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none mb-1 transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
 					/>
+					{rhfErrors.email && (
+						<span className="text-red-500 text-sm mb-2 block">
+							{rhfErrors.email.message}
+						</span>
+					)}
 					{errors.email && (
 						<span className="text-red-500 text-sm mb-2 block">
-							{errors.email.message}
+							{errors.email}
 						</span>
 					)}
 					<input
@@ -56,9 +71,14 @@ export default function Register() {
 						placeholder="パスワード"
 						className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none mb-1 transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
 					/>
+					{rhfErrors.password && (
+						<span className="text-red-500 text-sm mb-2 block">
+							{rhfErrors.password.message}
+						</span>
+					)}
 					{errors.password && (
 						<span className="text-red-500 text-sm mb-2 block">
-							{errors.password.message}
+							{errors.password}
 						</span>
 					)}
 					<button
