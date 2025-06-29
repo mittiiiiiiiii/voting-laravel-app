@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { router } from "@inertiajs/react";
 import "@/sass/style.css";
 
 export default function FeedbackForm() {
@@ -23,11 +24,12 @@ export default function FeedbackForm() {
 	});
 
 	const onSubmit = (data: FeedbackFormType) => {
-		console.log("送信内容", data);
+        console.log("送信内容", data);
+		router.get("/vote/top");
 	};
 
 	const handleCancel = () => {
-		console.log("キャンセルボタンが押されました");
+		router.get("/vote/top");
 	};
 
 	return (

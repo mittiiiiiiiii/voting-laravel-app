@@ -3,7 +3,7 @@ import { router } from "@inertiajs/react";
 
 export default function ContactButton() {
 	const handleClick = useCallback(() => {
-		router.get("/form/feedback");
+		router.get("/form/contact");
 	}, []);
 
 	const handleHover = (e: React.MouseEvent<HTMLButtonElement> | React.FocusEvent<HTMLButtonElement>, color: string) => {

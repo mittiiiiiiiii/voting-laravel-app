@@ -20,6 +20,12 @@ Route::get('/preview', function () {
     return Inertia::render('Preview');
 })->name('Preview');
 
+Route::prefix('form')->group(function () {
+    Route::get('/contact', function () {
+        return Inertia::render('Form/FeedbackForm');
+    })->name('contact');
+});
+
 Route::prefix('auth')->group(function () {
     Route::get('/register', function () {
         return Inertia::render('Auth/Register');
