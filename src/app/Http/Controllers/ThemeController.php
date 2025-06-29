@@ -47,8 +47,6 @@ class ThemeController extends Controller
 
         Log::info('フォームの登録が完了しました。', ['theme' => $theme]);
 
-        $request->session()->regenerate();
-
         return redirect() -> route('Vote.Top');
     }
 

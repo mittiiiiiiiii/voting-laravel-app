@@ -1,4 +1,4 @@
-import { Link, router } from "@inertiajs/react";
+import { Link, router, usePage } from "@inertiajs/react";
 import { useForm } from "react-hook-form";
 import "@/sass/style.css";
 import type { UserData } from "@/types/FormData";
@@ -14,6 +14,11 @@ export default function Login() {
 			password: "",
 		},
 	});
+
+	// Inertiaのバリデーションエラー
+	const { errors: inertiaErrors = {} } = usePage().props as {
+		errors?: { [key: string]: string };
+	};
 
 	const onSubmit = (data: UserData) => {
 		console.log("ボタンが押されたよー", data);
@@ -38,6 +43,11 @@ export default function Login() {
 							{errors.email.message}
 						</span>
 					)}
+					{inertiaErrors.email && (
+						<span className="text-red-500 text-sm mb-2 block">
+							{inertiaErrors.email}
+						</span>
+					)}
 					<input
 						type="password"
 						{...register("password", { required: "パスワードは必須です" })}
@@ -47,6 +57,11 @@ export default function Login() {
 					{errors.password && (
 						<span className="text-red-500 text-sm mb-2 block">
 							{errors.password.message}
+						</span>
+					)}
+					{inertiaErrors.password && (
+						<span className="text-red-500 text-sm mb-2 block">
+							{inertiaErrors.password}
 						</span>
 					)}
 					<button

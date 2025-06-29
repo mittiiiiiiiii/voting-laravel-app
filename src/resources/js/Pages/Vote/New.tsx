@@ -1,4 +1,4 @@
-import { router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import "@/sass/style.css";
@@ -19,7 +19,7 @@ export default function NewPage() {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors: rhfErrors },
 	} = useForm<ThemeForm>({
 		defaultValues: {
 			title: "",
@@ -27,6 +27,11 @@ export default function NewPage() {
 			deadline: "",
 		},
 	});
+
+	// Inertiaのバリデーションエラー
+	const { errors = {} } = usePage().props as {
+		errors?: { [key: string]: string };
+	};
 
 	const handleAddChoice = () => {
 		setChoices([...choices, { id: crypto.randomUUID(), text: "" }]); // 新しい選択肢を追加
@@ -37,7 +42,7 @@ export default function NewPage() {
 	};
 
 	const onSubmit = (data: ThemeForm) => {
-		data.choices = choices; // 選択肢をフォームデータに追加
+		data.choices = choices;
 		router.post("/vote/new", data);
 	};
 
@@ -62,9 +67,14 @@ export default function NewPage() {
 							className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none mb-1 transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
 							placeholder="例: 好きな色は？"
 						/>
+						{rhfErrors.title && (
+							<span className="text-red-500 text-sm mb-2 block">
+								{rhfErrors.title.message}
+							</span>
+						)}
 						{errors.title && (
 							<span className="text-red-500 text-sm mb-2 block">
-								{errors.title.message}
+								{errors.title}
 							</span>
 						)}
 					</div>
@@ -78,6 +88,11 @@ export default function NewPage() {
 							{...register("description")}
 							className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none mb-1 transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
 						/>
+						{errors.description && (
+							<span className="text-red-500 text-sm mb-2 block">
+								{errors.description}
+							</span>
+						)}
 					</div>
 					<div>
 						<label htmlFor="deadline" className="block font-semibold mb-1">
@@ -89,34 +104,52 @@ export default function NewPage() {
 							{...register("deadline")}
 							className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none mb-1 transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
 						/>
+						{errors.deadline && (
+							<span className="text-red-500 text-sm mb-2 block">
+								{errors.deadline}
+							</span>
+						)}
 					</div>
 					<div>
 						<h2 className="font-semibold mb-2">選択肢</h2>
-						{choices.map((choice) => (
-							<div key={choice.id} className="flex items-center gap-2 mb-2">
-								<label htmlFor={`choice-${choice.id}`} className="sr-only">
-									選択肢
-								</label>
-								<input
-									id={`choice-${choice.id}`}
-									type="text"
-									value={choice.text}
-									onChange={(e) => {
-										const updatedChoices = choices.map((c) =>
-											c.id === choice.id ? { ...c, text: e.target.value } : c,
-										);
-										setChoices(updatedChoices);
-									}}
-									className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
-									placeholder={`選択肢 ${choices.indexOf(choice) + 1}`}
-								/>
-								<button
-									type="button"
-									onClick={() => handleRemoveChoice(choice.id)}
-									className="bg-gray-400 hover:bg-red-500 text-white text-xs px-2 py-1 rounded transition"
-								>
-									✕
-								</button>
+						{errors.choices && (
+							<span className="text-red-500 text-sm mb-2 block">
+								{errors.choices}
+							</span>
+						)}
+						{choices.map((choice, idx) => (
+							<div key={choice.id} className="flex flex-col gap-1 mb-2">
+								<div className="flex items-center gap-2">
+									<label htmlFor={`choice-${choice.id}`} className="sr-only">
+										選択肢
+									</label>
+									<input
+										id={`choice-${choice.id}`}
+										type="text"
+										value={choice.text}
+										onChange={(e) => {
+											const updatedChoices = choices.map((c) =>
+												c.id === choice.id ? { ...c, text: e.target.value } : c,
+											);
+											setChoices(updatedChoices);
+										}}
+										className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
+										placeholder={`選択肢 ${idx + 1}`}
+									/>
+									<button
+										type="button"
+										onClick={() => handleRemoveChoice(choice.id)}
+										className="bg-gray-400 hover:bg-red-500 text-white text-xs px-2 py-1 rounded transition"
+									>
+										✕
+									</button>
+								</div>
+								{/* サーバーエラー（choices.0.textなど） */}
+								{errors[`choices.${idx}.text`] && (
+									<span className="text-red-500 text-sm mb-2 block">
+										{errors[`choices.${idx}.text`]}
+									</span>
+								)}
 							</div>
 						))}
 						<button

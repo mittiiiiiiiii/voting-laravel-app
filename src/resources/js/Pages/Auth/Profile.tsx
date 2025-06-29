@@ -4,7 +4,7 @@ import "@/sass/style.css";
 import type { UserData, UserProps } from "@/types/FormData";
 
 export default function ProfilePage() {
-	const { user } = usePage<UserProps>().props;
+	const { user, errors: inertiaErrors = {} } = usePage<UserProps & { errors?: { [key: string]: string } }>().props;
 
 	const {
 		register,
@@ -48,6 +48,11 @@ export default function ProfilePage() {
 							{errors.name.message}
 						</span>
 					)}
+					{inertiaErrors.name && (
+						<span className="text-red-500 text-sm mb-2 block">
+							{inertiaErrors.name}
+						</span>
+					)}
 					<input
 						type="email"
 						{...register("email", { required: "メールアドレスは必須です" })}
@@ -59,6 +64,11 @@ export default function ProfilePage() {
 							{errors.email.message}
 						</span>
 					)}
+					{inertiaErrors.email && (
+						<span className="text-red-500 text-sm mb-2 block">
+							{inertiaErrors.email}
+						</span>
+					)}
 					<input
 						type="password"
 						{...register("password")}
@@ -68,6 +78,11 @@ export default function ProfilePage() {
 					{errors.password && (
 						<span className="text-red-500 text-sm mb-2 block">
 							{errors.password.message}
+						</span>
+					)}
+					{inertiaErrors.password && (
+						<span className="text-red-500 text-sm mb-2 block">
+							{inertiaErrors.password}
 						</span>
 					)}
 					<div className="flex gap-4 justify-center mt-4">

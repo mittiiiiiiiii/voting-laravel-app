@@ -1283,6 +1283,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'tightenco/ziggy' => array(
+            'pretty_version' => 'v2.5.3',
+            'version' => '2.5.3.0',
+            'reference' => '0b3b521d2c55fbdb04b6721532f7f5f49d32f52b',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../tightenco/ziggy',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'tijsverkoyen/css-to-inline-styles' => array(
             'pretty_version' => 'v2.3.0',
             'version' => '2.3.0.0',

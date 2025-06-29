@@ -33,3 +33,9 @@ docker exec -it <php-container-name> bash
 - ユーザーが投票テーマを作成
 - 他のユーザーが投票できる
 - 関係DB設計（ユーザー×テーマ×投票）を構築
+
+# 修正すべきエラー集
+
+- emailの正しく無い形式でのエラー
+    - エラーがでない
+    - 'required|email:rfc,dns'を入れると正確な値を入れてもエラーが出る
