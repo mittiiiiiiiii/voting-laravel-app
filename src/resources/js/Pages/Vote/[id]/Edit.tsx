@@ -16,7 +16,7 @@ export default function EditPage() {
 		choices: Choice[];
 	};
 
-	const { theme, choices: initialChoices } = usePage<{
+	const { theme, choices: initialChoices, errors = {} } = usePage<{
 		theme: {
 			id: number;
 			title: string;
@@ -24,6 +24,7 @@ export default function EditPage() {
 			deadline?: string;
 		};
 		choices: Choice[];
+		errors?: { [key: string]: string };
 	}>().props;
 
 	const [choices, setChoices] = useState<Choice[]>(initialChoices);
@@ -31,7 +32,7 @@ export default function EditPage() {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors: rhfErrors },
 	} = useForm<ThemeForm>({
 		defaultValues: {
 			title: theme.title,
@@ -79,9 +80,14 @@ export default function EditPage() {
 							className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none mb-1 transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
 							placeholder="例: 好きな色は？"
 						/>
+						{rhfErrors.title && (
+							<span className="text-red-500 text-sm mb-2 block">
+								{rhfErrors.title.message}
+							</span>
+						)}
 						{errors.title && (
 							<span className="text-red-500 text-sm mb-2 block">
-								{errors.title.message}
+								{errors.title}
 							</span>
 						)}
 					</div>
@@ -95,6 +101,11 @@ export default function EditPage() {
 							{...register("description")}
 							className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none mb-1 transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
 						/>
+						{errors.description && (
+							<span className="text-red-500 text-sm mb-2 block">
+								{errors.description}
+							</span>
+						)}
 					</div>
 					<div>
 						<label htmlFor="deadline" className="block font-semibold mb-1">
@@ -106,34 +117,51 @@ export default function EditPage() {
 							{...register("deadline")}
 							className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none mb-1 transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
 						/>
+						{errors.deadline && (
+							<span className="text-red-500 text-sm mb-2 block">
+								{errors.deadline}
+							</span>
+						)}
 					</div>
 					<div>
 						<h2 className="font-semibold mb-2">選択肢</h2>
-						{choices.map((choice) => (
-							<div key={choice.id} className="flex items-center gap-2 mb-2">
-								<label htmlFor={`choice-${choice.id}`} className="sr-only">
-									選択肢
-								</label>
-								<input
-									id={`choice-${choice.id}`}
-									type="text"
-									value={choice.text}
-									onChange={(e) => {
-										const updatedChoices = choices.map((c) =>
-											c.id === choice.id ? { ...c, text: e.target.value } : c,
-										);
-										setChoices(updatedChoices);
-									}}
-									className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
-									placeholder={`選択肢 ${choices.indexOf(choice) + 1}`}
-								/>
-								<button
-									type="button"
-									onClick={() => handleRemoveChoice(choice.id)}
-									className="bg-gray-400 hover:bg-red-500 text-white text-xs px-2 py-1 rounded transition"
-								>
-									✕
-								</button>
+						{errors.choices && (
+							<span className="text-red-500 text-sm mb-2 block">
+								{errors.choices}
+							</span>
+						)}
+						{choices.map((choice, idx) => (
+							<div key={choice.id} className="flex flex-col gap-1 mb-2">
+								<div className="flex items-center gap-2">
+									<label htmlFor={`choice-${choice.id}`} className="sr-only">
+										選択肢
+									</label>
+									<input
+										id={`choice-${choice.id}`}
+										type="text"
+										value={choice.text}
+										onChange={(e) => {
+											const updatedChoices = choices.map((c) =>
+												c.id === choice.id ? { ...c, text: e.target.value } : c,
+											);
+											setChoices(updatedChoices);
+										}}
+										className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
+										placeholder={`選択肢 ${idx + 1}`}
+									/>
+									<button
+										type="button"
+										onClick={() => handleRemoveChoice(choice.id)}
+										className="bg-gray-400 hover:bg-red-500 text-white text-xs px-2 py-1 rounded transition"
+									>
+										✕
+									</button>
+								</div>
+								{errors[`choices.${idx}.text`] && (
+									<span className="text-red-500 text-sm mb-2 block">
+										{errors[`choices.${idx}.text`]}
+									</span>
+								)}
 							</div>
 						))}
 						<button
