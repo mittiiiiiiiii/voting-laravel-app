@@ -20,6 +20,7 @@ export default function ChoicePage() {
 	const { theme, choices } = usePage<{ theme: Theme; choices: Choice[] }>()
 		.props;
 	const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
+	const [error, setError] = useState<string>("");
 
 	const handleCancel = () => {
 		console.log("キャンセルボタンが押されたよー");
@@ -28,6 +29,7 @@ export default function ChoicePage() {
 
 	const handleChoiceClick = (id: number) => {
 		setSelectedChoice(id);
+		setError("");
 	};
 
 	const handleChoiceKeyDown = (
@@ -36,10 +38,15 @@ export default function ChoicePage() {
 	) => {
 		if (event.key === "Enter" || event.key === " ") {
 			setSelectedChoice(id);
+			setError("");
 		}
 	};
 
 	const handleVote = () => {
+		if (selectedChoice === null) {
+			setError("選択肢を選んでください。");
+			return;
+		}
 		console.log("id", theme.id);
 		router.post(`/vote/${theme.id}/choice`, { choice_id: selectedChoice });
 	};
@@ -57,6 +64,9 @@ export default function ChoicePage() {
 							: "なし"}
 					</p>
 				</div>
+				{error && (
+					<p className="text-red-500 text-sm mb-4">{error}</p>
+				)}
 				<ul className="space-y-2 mb-8">
 					{choices.map((choice) => (
 						<li key={choice.id}>
