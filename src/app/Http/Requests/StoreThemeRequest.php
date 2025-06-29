@@ -30,6 +30,12 @@ class StoreThemeRequest extends FormRequest
      */
     protected function prepareForValidation()
     {
+        if ($this->has('deadline') && $this->deadline) {
+            // 例: 日本時間（JST）で送信されている場合
+            $this->merge([
+                'deadline' => Carbon::parse($this->deadline, 'Asia/Tokyo')->toDateTimeString(),
+            ]);
+        }
     }
 
     /**

@@ -20,6 +20,7 @@ export default function ChoicePage() {
 	const { theme, choices } = usePage<{ theme: Theme; choices: Choice[] }>()
 		.props;
 	const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
+	const [error, setError] = useState<string>("");
 
 	const handleCancel = () => {
 		console.log("キャンセルボタンが押されたよー");
@@ -28,6 +29,7 @@ export default function ChoicePage() {
 
 	const handleChoiceClick = (id: number) => {
 		setSelectedChoice(id);
+		setError("");
 	};
 
 	const handleChoiceKeyDown = (
@@ -36,10 +38,15 @@ export default function ChoicePage() {
 	) => {
 		if (event.key === "Enter" || event.key === " ") {
 			setSelectedChoice(id);
+			setError("");
 		}
 	};
 
 	const handleVote = () => {
+		if (selectedChoice === null) {
+			setError("選択肢を選んでください。");
+			return;
+		}
 		console.log("id", theme.id);
 		router.post(`/vote/${theme.id}/choice`, { choice_id: selectedChoice });
 	};
@@ -57,12 +64,19 @@ export default function ChoicePage() {
 							: "なし"}
 					</p>
 				</div>
+				{error && (
+					<p className="text-red-500 text-sm mb-4">{error}</p>
+				)}
 				<ul className="space-y-2 mb-8">
 					{choices.map((choice) => (
 						<li key={choice.id}>
 							<button
 								type="button"
-								className={`w-full text-left px-4 py-3 rounded-md border border-gray-300 bg-gray-50 transition cursor-pointer text-base font-medium hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-200 ${selectedChoice === choice.id ? "bg-blue-600 text-white border-blue-600" : ""}`}
+								className={`w-full text-left px-4 py-3 rounded-md border border-gray-300 bg-gray-50 transition cursor-pointer text-base font-medium hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-200 ${
+									selectedChoice === choice.id
+										? "bg-blue-800 text-white font-bold border-blue-600"
+										: ""
+								}`}
 								onClick={() => handleChoiceClick(choice.id)}
 								onKeyDown={(event) => handleChoiceKeyDown(event, choice.id)}
 							>
