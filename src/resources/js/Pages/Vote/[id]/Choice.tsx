@@ -72,7 +72,11 @@ export default function ChoicePage() {
 						<li key={choice.id}>
 							<button
 								type="button"
-								className={`w-full text-left px-4 py-3 rounded-md border border-gray-300 bg-gray-50 transition cursor-pointer text-base font-medium hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-200 ${selectedChoice === choice.id ? "bg-blue-600 text-white border-blue-600" : ""}`}
+								className={`w-full text-left px-4 py-3 rounded-md border border-gray-300 bg-gray-50 transition cursor-pointer text-base font-medium hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-200 ${
+									selectedChoice === choice.id
+										? "bg-blue-800 text-white font-bold border-blue-600"
+										: ""
+								}`}
 								onClick={() => handleChoiceClick(choice.id)}
 								onKeyDown={(event) => handleChoiceKeyDown(event, choice.id)}
 							>
