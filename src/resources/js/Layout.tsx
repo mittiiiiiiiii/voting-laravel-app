@@ -1,13 +1,10 @@
+import Header from "@/components/Header";
 import ProfileButton from "@/components/profile";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<div>
-			<header
-				style={{ display: "flex", justifyContent: "flex-end", padding: "1rem" }}
-			>
-				<ProfileButton />
-			</header>
+			<Header />
 			<main>{children}</main>
 		</div>
 	);

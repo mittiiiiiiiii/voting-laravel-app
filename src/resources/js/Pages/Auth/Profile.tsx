@@ -4,7 +4,9 @@ import "@/sass/style.css";
 import type { UserData, UserProps } from "@/types/FormData";
 
 export default function ProfilePage() {
-	const { user, errors: inertiaErrors = {} } = usePage<UserProps & { errors?: { [key: string]: string } }>().props;
+	const { user, errors: inertiaErrors = {} } = usePage<
+		UserProps & { errors?: { [key: string]: string } }
+	>().props;
 
 	const {
 		register,
