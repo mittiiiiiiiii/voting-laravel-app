@@ -1,6 +1,10 @@
 # 投票アプリ
 - Laravel + Reactで実装
 
+# デプロイ
+
+- [xserverでのデプロイ](https://lareact29.xsrv.jp/)
+
 ## 環境構築手順
 
 ```bash

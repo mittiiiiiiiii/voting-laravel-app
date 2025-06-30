@@ -7,7 +7,7 @@ export default function ProfileButton() {
 	};
 
 	return (
-		<button type="button" onClick={handleProfile} className="profile-edit-btn">
+		<button type="button" onClick={handleProfile} className="profile-edit-btn ml-0">
 			プロフィール
 		</button>
 	);
