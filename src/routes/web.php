@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\FeedbackController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -24,6 +25,8 @@ Route::prefix('form')->group(function () {
     Route::get('/contact', function () {
         return Inertia::render('Form/FeedbackForm');
     })->name('contact');
+
+    Route::post('/contactr', [FeedbackController::class, 'store']);
 });
 
 Route::prefix('auth')->group(function () {

@@ -17,7 +17,7 @@ class StoreFeedbackRequest extends FormRequest
             'title' => 'required|string|max:255',
             'category' => 'required|string|max:255',
             'description' => 'required|string',
-            'email' => 'nullable|email|max:255',
+            'email' => 'sometimes|nullable|email|max:255',
         ];
     }
 
