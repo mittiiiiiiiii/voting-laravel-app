@@ -9,7 +9,7 @@ export default function Header() {
 				justifyContent: "space-between",
 				alignItems: "center",
 				padding: "1rem",
-				background: "#2563eb",
+				background: "#1a1a1a",
 				color: "white",
 			}}
 		>
