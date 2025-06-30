@@ -1,5 +1,5 @@
-import ProfileButton from "@/components/profile";
 import ContactButton from "@/components/ContactButton";
+import ProfileButton from "@/components/profile";
 import { Link } from "@inertiajs/react";
 
 export default function Header() {
