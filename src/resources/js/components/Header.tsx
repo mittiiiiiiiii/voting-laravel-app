@@ -14,7 +14,7 @@ export default function Header() {
 			}}
 		>
 			<h1 style={{ fontSize: "1.5rem", fontWeight: "bold", margin: 0 }}>
-				投票アプリ
+				ボートーク(仮)
 			</h1>
 			<div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
 				<ContactButton />
