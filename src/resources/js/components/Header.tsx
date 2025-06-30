@@ -1,5 +1,6 @@
 import ProfileButton from "@/components/profile";
 import ContactButton from "@/components/ContactButton";
+import { Link } from "@inertiajs/react";
 
 export default function Header() {
 	return (
@@ -13,9 +14,28 @@ export default function Header() {
 				color: "white",
 			}}
 		>
-			<h1 style={{ fontSize: "1.5rem", fontWeight: "bold", margin: 0 }}>
-				ボートーク(仮)
-			</h1>
+			<Link href="/" style={{ textDecoration: "none", color: "inherit" }}>
+				<h1
+					style={{
+						fontSize: "1.5rem",
+						fontWeight: "bold",
+						margin: 0,
+						fontFamily: "Times New Roman, serif",
+					}}
+				>
+					ボートーク(仮):Votalk
+					<span
+						style={{
+							fontSize: "0.8rem",
+							fontWeight: "normal",
+							marginLeft: "0.5rem",
+							color: "#ccc",
+						}}
+					>
+						- vote + talk -
+					</span>
+				</h1>
+			</Link>
 			<div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
 				<ContactButton />
 				<ProfileButton />
