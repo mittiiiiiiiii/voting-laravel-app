@@ -1,12 +1,17 @@
-import { useCallback } from "react";
 import { router } from "@inertiajs/react";
+import { useCallback } from "react";
 
 export default function ContactButton() {
 	const handleClick = useCallback(() => {
 		router.get("/form/contact");
 	}, []);
 
-	const handleHover = (e: React.MouseEvent<HTMLButtonElement> | React.FocusEvent<HTMLButtonElement>, color: string) => {
+	const handleHover = (
+		e:
+			| React.MouseEvent<HTMLButtonElement>
+			| React.FocusEvent<HTMLButtonElement>,
+		color: string,
+	) => {
 		e.currentTarget.style.background = color;
 	};
 
@@ -20,10 +25,10 @@ export default function ContactButton() {
 				color: "#2563eb",
 				border: "1.5px solid #2563eb",
 			}}
-			onMouseOver={e => handleHover(e, "#f3f4f6")}
-			onMouseOut={e => handleHover(e, "#fff")}
-			onFocus={e => handleHover(e, "#f3f4f6")}
-			onBlur={e => handleHover(e, "#fff")}
+			onMouseOver={(e) => handleHover(e, "#f3f4f6")}
+			onMouseOut={(e) => handleHover(e, "#fff")}
+			onFocus={(e) => handleHover(e, "#f3f4f6")}
+			onBlur={(e) => handleHover(e, "#fff")}
 		>
 			お問い合わせ
 		</button>

@@ -26,7 +26,12 @@ Route::prefix('form')->group(function () {
         return Inertia::render('Form/FeedbackForm');
     })->name('contact');
 
-    Route::post('/contactr', [FeedbackController::class, 'store']);
+    Route::post('/contact', [FeedbackController::class, 'store']);
+    Route::get('/form/thankyou', function () {
+        return Inertia::render('Form/ThankYou', [
+            'category' => session('category'),
+        ]);
+    })->name('feedback.thankyou');
 });
 
 Route::prefix('auth')->group(function () {

@@ -19,7 +19,7 @@ class FeedbackController extends Controller
         $feedback->email = $validated['email'] ?? null;
         $feedback->save();
 
-        // フィードバック送信後は投票トップへリダイレクト
-        return redirect()->route('Vote.Top')->with('success', 'フィードバックを受け付けました。');
+        // フィードバック送信後はサンクスページへリダイレクト
+        return redirect()->route('feedback.thankyou')->with('category', $validated['category']);
     }
 }

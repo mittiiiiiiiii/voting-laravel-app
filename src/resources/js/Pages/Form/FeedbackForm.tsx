@@ -1,5 +1,5 @@
-import { useForm } from "react-hook-form";
 import { router } from "@inertiajs/react";
+import { useForm } from "react-hook-form";
 import "@/sass/style.css";
 
 export default function FeedbackForm() {
@@ -25,7 +25,7 @@ export default function FeedbackForm() {
 
 	const onSubmit = (data: FeedbackFormType) => {
 		const sendData = { ...data, email: data.email ? data.email : null };
-		router.post("/form/contactr", sendData);
+		router.post("/form/contact", sendData);
 		// TODO: ありがとうモーダルをだしたい
 	};
 
@@ -36,7 +36,9 @@ export default function FeedbackForm() {
 	return (
 		<div className="min-h-screen bg-gray-100 flex items-start justify-center py-10">
 			<div className="w-full max-w-xl bg-white rounded-lg shadow-md p-8">
-				<h1 className="text-center text-2xl font-bold mb-8">フィードバック・お問い合わせ</h1>
+				<h1 className="text-center text-2xl font-bold mb-8">
+					フィードバック・お問い合わせ
+				</h1>
 				<form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
 					<div>
 						<label htmlFor="title" className="block font-semibold mb-1">
@@ -50,7 +52,9 @@ export default function FeedbackForm() {
 							placeholder="例: バグ報告、要望など"
 						/>
 						{errors.title && (
-							<span className="text-red-500 text-sm mb-2 block">{errors.title.message}</span>
+							<span className="text-red-500 text-sm mb-2 block">
+								{errors.title.message}
+							</span>
 						)}
 					</div>
 					<div>
@@ -70,7 +74,9 @@ export default function FeedbackForm() {
 							placeholder="例: example@email.com"
 						/>
 						{errors.email && (
-							<span className="text-red-500 text-sm mb-2 block">{errors.email.message}</span>
+							<span className="text-red-500 text-sm mb-2 block">
+								{errors.email.message}
+							</span>
 						)}
 					</div>
 					<div>
@@ -88,7 +94,9 @@ export default function FeedbackForm() {
 							<option value="コンタクト">コンタクト</option>
 						</select>
 						{errors.category && (
-							<span className="text-red-500 text-sm mb-2 block">{errors.category.message}</span>
+							<span className="text-red-500 text-sm mb-2 block">
+								{errors.category.message}
+							</span>
 						)}
 					</div>
 					<div>
@@ -103,7 +111,9 @@ export default function FeedbackForm() {
 							rows={5}
 						/>
 						{errors.description && (
-							<span className="text-red-500 text-sm mb-2 block">{errors.description.message}</span>
+							<span className="text-red-500 text-sm mb-2 block">
+								{errors.description.message}
+							</span>
 						)}
 					</div>
 					<div className="flex gap-2 mt-4 justify-center">
