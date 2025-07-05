@@ -1,6 +1,6 @@
 import { usePage } from "@inertiajs/react";
 import { router } from "@inertiajs/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
 	Bar,
 	BarChart,
@@ -24,13 +24,20 @@ export default function ResultPage() {
 	type Theme = {
 		id: number;
 		title: string;
+		choices: Array<{ id: number; text: string }>;
 	};
 
-	const { theme, results, userChoice } = usePage<{
+	const { theme, results, userChoice, choices } = usePage<{
 		theme: Theme;
 		results: Result[];
 		userChoice: string | null;
+		choices: Array<{ id: number; text: string }>;
 	}>().props;
+
+	// コメントフォームの状態
+	const [commentContent, setCommentContent] = useState("");
+	const [isAnonymous, setIsAnonymous] = useState(false);
+	const [replyTo, setReplyTo] = useState<number | null>(null);
 
 	const barColors = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042"];
 	const pieColors = ["#ff9999", "#66b3ff", "#99ff99", "#ffcc99", "#c2c2f0"];
@@ -62,6 +69,25 @@ export default function ResultPage() {
 
 	const handleHome = () => {
 		router.get("/vote/top");
+	};
+
+	const handleCommentSubmit = (e: React.FormEvent) => {
+		e.preventDefault();
+		if (!commentContent.trim()) return;
+
+		// フロントエンドのみなので、コンソールに出力
+		console.log("コメント送信:", {
+			content: commentContent,
+			is_anonymous: isAnonymous,
+			theme_id: theme.id,
+			parent_id: replyTo,
+			user_choice: userChoice
+		});
+
+		// フォームをリセット
+		setCommentContent("");
+		setIsAnonymous(false);
+		setReplyTo(null);
 	};
 
 	return (
@@ -123,6 +149,75 @@ export default function ResultPage() {
 				>
 					トップページに戻る
 				</button>
+			</div>
+
+			{/* コメントセクション */}
+			<div className="max-w-4xl mx-auto mt-8">
+				<h2 className="text-xl font-bold mb-6 text-gray-800">コメント</h2>
+
+				{/* コメント投稿フォーム */}
+				<div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+					<form onSubmit={handleCommentSubmit}>
+						{replyTo && (
+							<div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded">
+								<p className="text-sm text-blue-700">
+									コメント #{replyTo} に返信しています
+									<button
+										type="button"
+										onClick={() => setReplyTo(null)}
+										className="ml-2 text-blue-500 hover:text-blue-700 underline"
+									>
+										キャンセル
+									</button>
+								</p>
+							</div>
+						)}
+
+						<div className="mb-4">
+							<label htmlFor="comment-content" className="block text-sm font-medium text-gray-700 mb-2">
+								コメント
+							</label>
+							<textarea
+								id="comment-content"
+								value={commentContent}
+								onChange={(e) => setCommentContent(e.target.value)}
+								placeholder={replyTo ? `コメント #${replyTo} に返信を入力してください...` : "コメントを入力してください..."}
+								className="w-full p-3 border border-gray-300 rounded-lg resize-none"
+								rows={4}
+								required
+							/>
+						</div>
+
+
+
+						<div className="mb-4">
+							<label htmlFor="anonymous-checkbox" className="flex items-center">
+								<input
+									id="anonymous-checkbox"
+									type="checkbox"
+									checked={isAnonymous}
+									onChange={(e) => setIsAnonymous(e.target.checked)}
+									className="mr-2"
+								/>
+								<span className="text-sm text-gray-700">匿名で投稿する</span>
+							</label>
+						</div>
+
+						<button
+							type="submit"
+							className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition"
+						>
+							コメントを投稿
+						</button>
+					</form>
+				</div>
+
+								{/* コメント一覧（プレースホルダー） */}
+				<div className="bg-white rounded-lg shadow-sm p-6">
+					<div className="text-center text-gray-500 py-8">
+						まだコメントがありません。最初のコメントを投稿してみましょう！
+					</div>
+				</div>
 			</div>
 		</div>
 	);

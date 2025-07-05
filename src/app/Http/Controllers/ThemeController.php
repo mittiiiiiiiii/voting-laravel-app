@@ -144,7 +144,8 @@ class ThemeController extends Controller
         return Inertia::render('Vote/[id]/Result', [
             'theme' => $theme,
             'results' => $data,
-            'userChoice' => $userChoiceText
+            'userChoice' => $userChoiceText,
+            'choices' => $theme->choices
         ]);
     }
 }
