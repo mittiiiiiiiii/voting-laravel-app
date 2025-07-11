@@ -124,17 +124,31 @@ export default function ResultPage() {
 	};
 
 	// idToNumber: 投稿順でid→番号
-	const idToNumber = Object.fromEntries(comments.map((c, idx) => [c.id, idx + 1]));
+	const idToNumber = Object.fromEntries(
+		comments.map((c, idx) => [c.id, idx + 1]),
+	);
 
 	// コメント表示用コンポーネント
 	const CommentItem = ({
 		comment,
 		onReply,
-		comments
-	}: { comment: Comment; onReply?: (id: number) => void; comments: Comment[] }) => {
+		comments,
+	}: {
+		comment: Comment;
+		onReply?: (id: number) => void;
+		comments: Comment[];
+	}) => {
 		const parentNumber = comment.parent_id
 			? comments.find((c) => c.id === comment.parent_id)?.number
 			: undefined;
+		const parentId = comment.parent_id;
+		const handleJump = (e: React.MouseEvent) => {
+			e.preventDefault();
+			const el = document.getElementById(`comment-${parentId}`);
+			if (el) {
+				el.scrollIntoView({ behavior: "smooth", block: "center" });
+			}
+		};
 		return (
 			<div className="mb-4">
 				<div className="flex items-center gap-2">
@@ -145,8 +159,14 @@ export default function ResultPage() {
 						{new Date(comment.created_at).toLocaleString()}
 					</span>
 					{/* 返信元番号表示 */}
-					{parentNumber && (
-						<span className="ml-2 text-xs text-blue-500">#{parentNumber} に返信</span>
+					{parentNumber && parentId && (
+						<a
+							href={`#comment-${parentId}`}
+							onClick={handleJump}
+							className="ml-2 text-xs text-blue-500 underline cursor-pointer"
+						>
+							#{parentNumber} に返信
+						</a>
 					)}
 				</div>
 				<div className="mt-1 text-gray-700 text-sm">
@@ -170,7 +190,9 @@ export default function ResultPage() {
 	};
 
 	// 返信先番号を取得
-	const replyToNumber = replyTo ? comments.find(c => c.id === replyTo)?.number : undefined;
+	const replyToNumber = replyTo
+		? comments.find((c) => c.id === replyTo)?.number
+		: undefined;
 
 	return (
 		<div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center py-10">
@@ -308,10 +330,20 @@ export default function ResultPage() {
 				) : (
 					<div>
 						{comments.map((comment: Comment) => (
-							<div key={comment.id} className="mb-4">
+							<div
+								key={comment.id}
+								className="mb-4"
+								id={`comment-${comment.id}`}
+							>
 								{/* 番号表示 */}
-								<div className="text-xs text-gray-400 mb-1">#{comment.number}</div>
-								<CommentItem comment={comment} onReply={setReplyTo} comments={comments} />
+								<div className="text-xs text-gray-400 mb-1">
+									#{comment.number}
+								</div>
+								<CommentItem
+									comment={comment}
+									onReply={setReplyTo}
+									comments={comments}
+								/>
 								<hr className="border-t border-gray-200 my-4" />
 							</div>
 						))}
