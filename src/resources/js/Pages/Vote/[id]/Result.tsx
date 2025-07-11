@@ -199,83 +199,87 @@ export default function ResultPage() {
 				</button>
 			</div>
 
-			{/* コメントセクション */}
-			<div className="max-w-4xl mx-auto mt-8">
-				<h2 className="text-xl font-bold mb-6 text-gray-800">コメント</h2>
-
-				{/* コメント投稿フォーム */}
-				<div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-					<form onSubmit={handleCommentSubmit}>
-						{replyTo && (
-							<div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded">
-								<p className="text-sm text-blue-700">
-									コメント #{replyTo} に返信しています
-									<button
-										type="button"
-										onClick={() => setReplyTo(null)}
-										className="ml-2 text-blue-500 hover:text-blue-700 underline"
-									>
-										キャンセル
-									</button>
-								</p>
-							</div>
-						)}
-
-						<div className="mb-4">
-							<label htmlFor="comment-content" className="block text-sm font-medium text-gray-700 mb-2">
-								コメント
-							</label>
-							<textarea
-								id="comment-content"
-								value={commentContent}
-								onChange={(e) => setCommentContent(e.target.value)}
-								placeholder={replyTo ? `コメント #${replyTo} に返信を入力してください...` : "コメントを入力してください..."}
-								className="w-full p-3 border border-gray-300 rounded-lg resize-none"
-								rows={4}
-								required
-							/>
-						</div>
-
-
-
-						<div className="mb-4">
-							<label htmlFor="anonymous-checkbox" className="flex items-center">
-								<input
-									id="anonymous-checkbox"
-									type="checkbox"
-									checked={isAnonymous}
-									onChange={(e) => setIsAnonymous(e.target.checked)}
-									className="mr-2"
-								/>
-								<span className="text-sm text-gray-700">匿名で投稿する</span>
-							</label>
-						</div>
-
-						<button
-							type="submit"
-							className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition"
-						>
-							コメントを投稿
-						</button>
-					</form>
-				</div>
-
-								{/* コメント一覧（プレースホルダー） */}
-				<div className="bg-white rounded-lg shadow-sm p-6">
-					{loadingComments ? (
-						<div className="text-center text-gray-400 py-8">コメントを読み込み中...</div>
-					) : comments.length === 0 ? (
-						<div className="text-center text-gray-500 py-8">
-							まだコメントがありません。最初のコメントを投稿してみましょう！
-						</div>
-					) : (
-						<div>
-							{comments.map((comment) => (
-								<CommentItem key={comment.id} comment={comment} />
-							))}
+			{/* コメント投稿フォーム */}
+			<div className="bg-white rounded-lg shadow-sm p-6 mb-6 max-w-2xl mx-auto w-full">
+				<form onSubmit={handleCommentSubmit}>
+					{replyTo && (
+						<div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded">
+							<p className="text-sm text-blue-700">
+								コメント #{replyTo} に返信しています
+								<button
+									type="button"
+									onClick={() => setReplyTo(null)}
+									className="ml-2 text-blue-500 hover:text-blue-700 underline"
+								>
+									キャンセル
+								</button>
+							</p>
 						</div>
 					)}
-				</div>
+
+					<div className="mb-4">
+						<label htmlFor="comment-content" className="block text-sm font-medium text-gray-700 mb-2">
+							コメント
+						</label>
+						<textarea
+							id="comment-content"
+							value={commentContent}
+							onChange={(e) => setCommentContent(e.target.value)}
+							placeholder={replyTo ? `コメント #${replyTo} に返信を入力してください...` : "コメントを入力してください..."}
+							className="w-full p-3 border border-gray-300 rounded-lg resize-none"
+							rows={4}
+							required
+						/>
+					</div>
+
+					<div className="mb-4">
+						<label htmlFor="anonymous-checkbox" className="flex items-center">
+							<input
+								id="anonymous-checkbox"
+								type="checkbox"
+								checked={isAnonymous}
+								onChange={(e) => setIsAnonymous(e.target.checked)}
+								className="mr-2"
+							/>
+							<span className="text-sm text-gray-700">匿名で投稿する</span>
+						</label>
+					</div>
+
+					<button
+						type="submit"
+						className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition"
+					>
+						コメントを投稿
+					</button>
+				</form>
+			</div>
+
+			{/* コメント表示ゾーン */}
+			<div className="bg-white rounded-lg shadow-sm p-6 max-w-2xl mx-auto w-full">
+				{loadingComments ? (
+					<div className="text-center text-gray-400 py-8">コメントを読み込み中...</div>
+				) : comments.length === 0 ? (
+					<div className="text-center text-gray-500 py-8">
+						まだコメントがありません。最初のコメントを投稿してみましょう！
+					</div>
+				) : (
+					<div>
+						{comments.map((comment) => (
+							<div key={comment.id} className="mb-4">
+								<CommentItem comment={comment} />
+								{comment.replies && comment.replies.length > 0 && (
+									<div>
+										{comment.replies.map((reply) => (
+											<div key={reply.id} className="mb-4">
+												<CommentItem comment={reply} />
+											</div>
+										))}
+									</div>
+								)}
+							</div>
+						))}
+					</div>
+				)}
 			</div>
 		</div>
 	);
