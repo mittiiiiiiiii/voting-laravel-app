@@ -264,8 +264,10 @@ export default function ResultPage() {
 					</div>
 				) : (
 					<div>
-						{comments.map((comment) => (
+						{comments.map((comment, idx) => (
 							<div key={comment.id} className="mb-4">
+								{/* 番号表示 */}
+								<div className="text-xs text-gray-400 mb-1">#{idx + 1}</div>
 								<CommentItem comment={comment} />
 								{comment.replies && comment.replies.length > 0 && (
 									<div>
@@ -276,6 +278,7 @@ export default function ResultPage() {
 										))}
 									</div>
 								)}
+								<hr className="border-t border-gray-200 my-4" />
 							</div>
 						))}
 					</div>
