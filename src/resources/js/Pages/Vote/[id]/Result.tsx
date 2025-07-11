@@ -1,5 +1,6 @@
 import { usePage } from "@inertiajs/react";
 import { router } from "@inertiajs/react";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import {
 	Bar,
@@ -13,7 +14,6 @@ import {
 	XAxis,
 	YAxis,
 } from "recharts";
-import axios from "axios";
 
 export default function ResultPage() {
 	type Result = {
@@ -96,36 +96,51 @@ export default function ResultPage() {
 		router.get("/vote/top");
 	};
 
-	const handleCommentSubmit = (e: React.FormEvent) => {
+	const handleCommentSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		if (!commentContent.trim()) return;
 
-		// フロントエンドのみなので、コンソールに出力
-		console.log("コメント送信:", {
-			content: commentContent,
-			is_anonymous: isAnonymous,
-			theme_id: theme.id,
-			parent_id: replyTo,
-			user_choice: userChoice
-		});
-
-		// フォームをリセット
-		setCommentContent("");
-		setIsAnonymous(false);
-		setReplyTo(null);
+		try {
+			await axios.post("/comments", {
+				content: commentContent,
+				is_anonymous: isAnonymous,
+				theme_id: theme.id,
+				parent_id: replyTo,
+			});
+			// 成功時はコメント一覧を再取得
+			setLoadingComments(true);
+			const res = await axios.get(`/comments?theme_id=${theme.id}`);
+			setComments(res.data);
+		} catch (err) {
+			alert("コメントの送信に失敗しました");
+		} finally {
+			setLoadingComments(false);
+			setCommentContent("");
+			setIsAnonymous(false);
+			setReplyTo(null);
+		}
 	};
 
 	// コメント表示用コンポーネント
-	const CommentItem = ({ comment, depth = 0 }: { comment: Comment; depth?: number }) => (
+	const CommentItem = ({
+		comment,
+		depth = 0,
+	}: { comment: Comment; depth?: number }) => (
 		<div className={`mb-4 ml-${depth * 6}`}>
 			<div className="flex items-center gap-2">
 				<span className="font-semibold text-gray-800 text-sm">
-					{comment.is_anonymous ? "匿名" : comment.user?.name ?? "(不明)"}
+					{comment.is_anonymous ? "匿名" : (comment.user?.name ?? "(不明)")}
 				</span>
-				<span className="text-xs text-gray-400">{new Date(comment.created_at).toLocaleString()}</span>
+				<span className="text-xs text-gray-400">
+					{new Date(comment.created_at).toLocaleString()}
+				</span>
 			</div>
 			<div className="mt-1 text-gray-700 text-sm">
-				{comment.is_deleted ? <span className="italic text-gray-400">(削除済み)</span> : comment.content}
+				{comment.is_deleted ? (
+					<span className="italic text-gray-400">(削除済み)</span>
+				) : (
+					comment.content
+				)}
 			</div>
 			{/* リプライ（子コメント） */}
 			{comment.replies && comment.replies.length > 0 && (
@@ -218,14 +233,21 @@ export default function ResultPage() {
 					)}
 
 					<div className="mb-4">
-						<label htmlFor="comment-content" className="block text-sm font-medium text-gray-700 mb-2">
+						<label
+							htmlFor="comment-content"
+							className="block text-sm font-medium text-gray-700 mb-2"
+						>
 							コメント
 						</label>
 						<textarea
 							id="comment-content"
 							value={commentContent}
 							onChange={(e) => setCommentContent(e.target.value)}
-							placeholder={replyTo ? `コメント #${replyTo} に返信を入力してください...` : "コメントを入力してください..."}
+							placeholder={
+								replyTo
+									? `コメント #${replyTo} に返信を入力してください...`
+									: "コメントを入力してください..."
+							}
 							className="w-full p-3 border border-gray-300 rounded-lg resize-none"
 							rows={4}
 							required
@@ -257,7 +279,9 @@ export default function ResultPage() {
 			{/* コメント表示ゾーン */}
 			<div className="bg-white rounded-lg shadow-sm p-6 max-w-2xl mx-auto w-full">
 				{loadingComments ? (
-					<div className="text-center text-gray-400 py-8">コメントを読み込み中...</div>
+					<div className="text-center text-gray-400 py-8">
+						コメントを読み込み中...
+					</div>
 				) : comments.length === 0 ? (
 					<div className="text-center text-gray-500 py-8">
 						まだコメントがありません。最初のコメントを投稿してみましょう！
