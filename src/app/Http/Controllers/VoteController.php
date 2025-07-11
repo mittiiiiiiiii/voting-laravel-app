@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Comment;
 
 class VoteController extends Controller
 {
@@ -78,22 +79,22 @@ class VoteController extends Controller
 
         $user = Auth::user();
 
-        // // 既に同じテーマに投票しているか確認
-        // $existingVote = vote::where('user_id', $user->id)
-        //     ->where('theme_id', $id)
-        //     ->first();
-
-        // if ($existingVote) {
-        //     return response()->json(['message' => '既にこのテーマに投票済みです。'], 400);
-        // }
-
         $vote = new Vote();
-
         $vote->user_id = $user->id;
         $vote->theme_id = $id;
         $vote->choice_id = $request->choice_id;
-
         $vote->save();
+
+        // コメントがあれば保存
+        if ($request->filled('comment_content')) {
+            Comment::create([
+                'user_id' => $user->id,
+                'theme_id' => $id,
+                'choice_id' => $request->choice_id,
+                'content' => $request->comment_content,
+                'is_anonymous' => $request->boolean('is_anonymous', false),
+            ]);
+        }
 
         return redirect()->route('Vote.Result',['id' => $id]);
     }

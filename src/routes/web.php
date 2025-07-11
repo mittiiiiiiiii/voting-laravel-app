@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\CommentController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -77,3 +78,5 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/{id}/delete', [ThemeController::class, 'delete'])->name('Vote.Update');
     });
 });
+
+Route::get('/comments', [CommentController::class, 'index']);

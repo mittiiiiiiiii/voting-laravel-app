@@ -13,6 +13,7 @@ import {
 	XAxis,
 	YAxis,
 } from "recharts";
+import axios from "axios";
 
 export default function ResultPage() {
 	type Result = {
@@ -38,6 +39,30 @@ export default function ResultPage() {
 	const [commentContent, setCommentContent] = useState("");
 	const [isAnonymous, setIsAnonymous] = useState(false);
 	const [replyTo, setReplyTo] = useState<number | null>(null);
+
+	type Comment = {
+		id: number;
+		user: { id: number; name: string } | null;
+		content: string;
+		is_anonymous: boolean;
+		is_deleted: boolean;
+		created_at: string;
+		replies: Comment[];
+	};
+
+	const [comments, setComments] = useState<Comment[]>([]);
+	const [loadingComments, setLoadingComments] = useState(true);
+
+	useEffect(() => {
+		setLoadingComments(true);
+		axios
+			.get(`/comments?theme_id=${theme.id}`)
+			.then((res) => {
+				setComments(res.data);
+			})
+			.catch(() => setComments([]))
+			.finally(() => setLoadingComments(false));
+	}, [theme.id]);
 
 	const barColors = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042"];
 	const pieColors = ["#ff9999", "#66b3ff", "#99ff99", "#ffcc99", "#c2c2f0"];
@@ -89,6 +114,29 @@ export default function ResultPage() {
 		setIsAnonymous(false);
 		setReplyTo(null);
 	};
+
+	// コメント表示用コンポーネント
+	const CommentItem = ({ comment, depth = 0 }: { comment: Comment; depth?: number }) => (
+		<div className={`mb-4 ml-${depth * 6}`}>
+			<div className="flex items-center gap-2">
+				<span className="font-semibold text-gray-800 text-sm">
+					{comment.is_anonymous ? "匿名" : comment.user?.name ?? "(不明)"}
+				</span>
+				<span className="text-xs text-gray-400">{new Date(comment.created_at).toLocaleString()}</span>
+			</div>
+			<div className="mt-1 text-gray-700 text-sm">
+				{comment.is_deleted ? <span className="italic text-gray-400">(削除済み)</span> : comment.content}
+			</div>
+			{/* リプライ（子コメント） */}
+			{comment.replies && comment.replies.length > 0 && (
+				<div className="mt-2 border-l-2 border-gray-200 pl-4">
+					{comment.replies.map((reply) => (
+						<CommentItem key={reply.id} comment={reply} depth={depth + 1} />
+					))}
+				</div>
+			)}
+		</div>
+	);
 
 	return (
 		<div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center py-10">
@@ -214,9 +262,19 @@ export default function ResultPage() {
 
 								{/* コメント一覧（プレースホルダー） */}
 				<div className="bg-white rounded-lg shadow-sm p-6">
-					<div className="text-center text-gray-500 py-8">
-						まだコメントがありません。最初のコメントを投稿してみましょう！
-					</div>
+					{loadingComments ? (
+						<div className="text-center text-gray-400 py-8">コメントを読み込み中...</div>
+					) : comments.length === 0 ? (
+						<div className="text-center text-gray-500 py-8">
+							まだコメントがありません。最初のコメントを投稿してみましょう！
+						</div>
+					) : (
+						<div>
+							{comments.map((comment) => (
+								<CommentItem key={comment.id} comment={comment} />
+							))}
+						</div>
+					)}
 				</div>
 			</div>
 		</div>
