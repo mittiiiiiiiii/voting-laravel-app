@@ -18,11 +18,15 @@ class CommentController extends Controller
             return response()->json(['error' => 'theme_id is required'], 400);
         }
 
-        $comments = Comment::with(['user:id,name', 'replies.user:id,name'])
+        $comments = Comment::with('user:id,name')
             ->where('theme_id', $themeId)
-            ->whereNull('parent_id')
             ->orderBy('created_at', 'asc')
             ->get();
+
+        // 1から順にnumberを振る
+        foreach ($comments as $i => $comment) {
+            $comment->number = $i + 1;
+        }
 
         return response()->json($comments);
     }

@@ -48,6 +48,8 @@ export default function ResultPage() {
 		is_deleted: boolean;
 		created_at: string;
 		replies: Comment[];
+		parent_id: number | null;
+		number: number; // 投稿順での番号
 	};
 
 	const [comments, setComments] = useState<Comment[]>([]);
@@ -121,37 +123,54 @@ export default function ResultPage() {
 		}
 	};
 
+	// idToNumber: 投稿順でid→番号
+	const idToNumber = Object.fromEntries(comments.map((c, idx) => [c.id, idx + 1]));
+
 	// コメント表示用コンポーネント
 	const CommentItem = ({
 		comment,
-		depth = 0,
-	}: { comment: Comment; depth?: number }) => (
-		<div className={`mb-4 ml-${depth * 6}`}>
-			<div className="flex items-center gap-2">
-				<span className="font-semibold text-gray-800 text-sm">
-					{comment.is_anonymous ? "匿名" : (comment.user?.name ?? "(不明)")}
-				</span>
-				<span className="text-xs text-gray-400">
-					{new Date(comment.created_at).toLocaleString()}
-				</span>
-			</div>
-			<div className="mt-1 text-gray-700 text-sm">
-				{comment.is_deleted ? (
-					<span className="italic text-gray-400">(削除済み)</span>
-				) : (
-					comment.content
+		onReply,
+		comments
+	}: { comment: Comment; onReply?: (id: number) => void; comments: Comment[] }) => {
+		const parentNumber = comment.parent_id
+			? comments.find((c) => c.id === comment.parent_id)?.number
+			: undefined;
+		return (
+			<div className="mb-4">
+				<div className="flex items-center gap-2">
+					<span className="font-semibold text-gray-800 text-sm">
+						{comment.is_anonymous ? "匿名" : (comment.user?.name ?? "(不明)")}
+					</span>
+					<span className="text-xs text-gray-400">
+						{new Date(comment.created_at).toLocaleString()}
+					</span>
+					{/* 返信元番号表示 */}
+					{parentNumber && (
+						<span className="ml-2 text-xs text-blue-500">#{parentNumber} に返信</span>
+					)}
+				</div>
+				<div className="mt-1 text-gray-700 text-sm">
+					{comment.is_deleted ? (
+						<span className="italic text-gray-400">(削除済み)</span>
+					) : (
+						comment.content
+					)}
+				</div>
+				{!comment.is_deleted && (
+					<button
+						type="button"
+						className="text-xs text-blue-500 hover:underline mt-1"
+						onClick={() => onReply?.(comment.id)}
+					>
+						返信
+					</button>
 				)}
 			</div>
-			{/* リプライ（子コメント） */}
-			{comment.replies && comment.replies.length > 0 && (
-				<div className="mt-2 border-l-2 border-gray-200 pl-4">
-					{comment.replies.map((reply) => (
-						<CommentItem key={reply.id} comment={reply} depth={depth + 1} />
-					))}
-				</div>
-			)}
-		</div>
-	);
+		);
+	};
+
+	// 返信先番号を取得
+	const replyToNumber = replyTo ? comments.find(c => c.id === replyTo)?.number : undefined;
 
 	return (
 		<div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center py-10">
@@ -220,7 +239,7 @@ export default function ResultPage() {
 					{replyTo && (
 						<div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded">
 							<p className="text-sm text-blue-700">
-								コメント #{replyTo} に返信しています
+								コメント #{replyToNumber} に返信しています
 								<button
 									type="button"
 									onClick={() => setReplyTo(null)}
@@ -245,7 +264,7 @@ export default function ResultPage() {
 							onChange={(e) => setCommentContent(e.target.value)}
 							placeholder={
 								replyTo
-									? `コメント #${replyTo} に返信を入力してください...`
+									? `コメント #${replyToNumber} に返信を入力してください...`
 									: "コメントを入力してください..."
 							}
 							className="w-full p-3 border border-gray-300 rounded-lg resize-none"
@@ -288,20 +307,11 @@ export default function ResultPage() {
 					</div>
 				) : (
 					<div>
-						{comments.map((comment, idx) => (
+						{comments.map((comment: Comment) => (
 							<div key={comment.id} className="mb-4">
 								{/* 番号表示 */}
-								<div className="text-xs text-gray-400 mb-1">#{idx + 1}</div>
-								<CommentItem comment={comment} />
-								{comment.replies && comment.replies.length > 0 && (
-									<div>
-										{comment.replies.map((reply) => (
-											<div key={reply.id} className="mb-4">
-												<CommentItem comment={reply} />
-											</div>
-										))}
-									</div>
-								)}
+								<div className="text-xs text-gray-400 mb-1">#{comment.number}</div>
+								<CommentItem comment={comment} onReply={setReplyTo} comments={comments} />
 								<hr className="border-t border-gray-200 my-4" />
 							</div>
 						))}
